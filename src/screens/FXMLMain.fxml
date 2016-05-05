@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.effect.*?>
+<?import javafx.scene.text.*?>
+<?import javafx.geometry.*?>
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.image.*?>
+
+<BorderPane fx:id="root" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="screens.FXMLMainController">
+   <top>
+      <GridPane fx:id="header" BorderPane.alignment="CENTER_RIGHT">
+         <children>
+            <MenuBar fx:id="headerNavBar" nodeOrientation="LEFT_TO_RIGHT" BorderPane.alignment="CENTER">
+              <menus>
+                <Menu fx:id="headerItems" mnemonicParsing="false" text="">
+                  <items>
+                    <MenuItem fx:id="btnLogin" mnemonicParsing="false" onAction="#handleClick" styleClass="headerItem" text=" Connexion" />
+                    <MenuItem fx:id="btnRegister" mnemonicParsing="false" onAction="#handleClick" styleClass="headerItem" text=" Inscription" />
+                    <MenuItem fx:id="btnLogout" mnemonicParsing="false" onAction="#handleClick" styleClass="headerItem" text=" Déconnexion" />
+                  </items>
+                </Menu>
+              </menus>
+            </MenuBar>
+         </children>
+         <columnConstraints>
+            <ColumnConstraints halignment="LEFT" />
+            <ColumnConstraints fillWidth="false" halignment="RIGHT" hgrow="ALWAYS" minWidth="10.0" />
+         </columnConstraints>
+         <rowConstraints>
+            <RowConstraints />
+         </rowConstraints>
+      </GridPane>
+   </top>
+   <center>
+      <VBox id="mainContainer" alignment="CENTER" fillWidth="false" BorderPane.alignment="CENTER">
+         <children>
+              <StackPane fx:id="StackPaneMain">
+              </StackPane>
+         </children>
+      </VBox>      
+   </center>
+   <bottom>
+      <HBox alignment="CENTER_LEFT" style="-fx-background-color: -fx-color-tertiary;" BorderPane.alignment="CENTER">
+         <children>
+            <Label text="Copyright" textFill="#8598a4">
+               <HBox.margin>
+                  <Insets bottom="5.0" left="10.0" top="5.0" />
+               </HBox.margin>
+               <font>
+                  <Font name="System Bold" size="10.0" />
+               </font>
+            </Label>
+            <HBox alignment="CENTER_RIGHT" HBox.hgrow="ALWAYS">
+               <children>
+                  <ProgressBar nodeOrientation="LEFT_TO_RIGHT" prefWidth="150.0" progress="0.0" HBox.hgrow="NEVER">
+                     <HBox.margin>
+                        <Insets bottom="5.0" right="10.0" top="5.0" />
+                     </HBox.margin>
+                  </ProgressBar>
+               </children>
+            </HBox>
+         </children>
+      </HBox>
+   </bottom>
+</BorderPane>
