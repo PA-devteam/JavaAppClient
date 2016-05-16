@@ -17,6 +17,10 @@ import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.GridPane;
 import security.Authenticator;
+import sockets.PaSocketAction;
+import sockets.PaSocketClient;
+import sockets.PaSocketMessageLogin;
+import sockets.PaSocketMessageRegister;
 
 /**
  * FXML Controller class
@@ -24,7 +28,7 @@ import security.Authenticator;
  * @author sebastien
  */
 public class FXMLRegisterController implements Initializable {
-
+    
     @FXML
     private GridPane paneRegister;
 
@@ -33,27 +37,24 @@ public class FXMLRegisterController implements Initializable {
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-       paneRegister.setOnKeyPressed(new EventHandler<KeyEvent>()
-        {
+        paneRegister.setOnKeyPressed(new EventHandler<KeyEvent>() {
             @Override
-            public void handle(KeyEvent ke)
-            {
-                if (ke.getCode().equals(KeyCode.ENTER))
-                {
+            public void handle(KeyEvent ke) {
+                if (ke.getCode().equals(KeyCode.ENTER)) {
                     System.out.println("ENTER");
                     register();
                 }
             }
         });
     }
-
+    
     @FXML
     private void handleClick(ActionEvent event) throws IOException {
         Button mItem = (Button) event.getSource();
-
+        
         String side = mItem.getText();
-
-        switch(side.toLowerCase()) {
+        
+        switch (side.toLowerCase()) {
             case "ok":
                 System.out.println("ok");
                 register();
@@ -72,10 +73,21 @@ public class FXMLRegisterController implements Initializable {
     private void register() {
         System.out.println("register");
         
-        if(Authenticator.register()) {
-            ScreensManager.setContent(Screens.WORKSPACE);
-        } else {
-            System.err.println("Registration failed");
-        }        
+        PaSocketMessageRegister pasr = new PaSocketMessageRegister();
+        pasr.setAction(PaSocketAction.REGISTER);
+        pasr.setUserFirstName("seb");
+        pasr.setUserLastName("fricker");
+        pasr.setUserName("sfricker");
+        pasr.setUserEmail("test@test.com");
+        pasr.setUserPassword("1234");
+        pasr.setUserConfirmPassword("1234");
+        
+        PaSocketClient.sendObject(pasr);
+
+//        if(Authenticator.register()) {
+//            ScreensManager.setContent(Screens.WORKSPACE);
+//        } else {
+//            System.err.println("Registration failed");
+//        }
     }
 }

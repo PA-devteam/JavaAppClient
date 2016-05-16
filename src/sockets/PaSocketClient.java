@@ -48,6 +48,8 @@ public class PaSocketClient extends Thread implements Runnable {
         try {
             // Initialise stream handlers
             initStreamHandlers();
+            
+            // while ?
         } catch (IOException ex) {
             Logger.getLogger(PaSocketClient.class.getName()).log(Level.SEVERE, null, ex);
         }

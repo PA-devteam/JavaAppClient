@@ -12,6 +12,8 @@ import javafx.scene.control.MenuItem;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.StackPane;
 import security.Authenticator;
+import sockets.PaSocketClient;
+import sockets.PaSocketMessageLogin;
 
 public class FXMLMainController implements Initializable {
 
@@ -45,6 +47,11 @@ public class FXMLMainController implements Initializable {
         // Visible is auth
         btnLogout.visibleProperty().bind(Authenticator.isAuth);
 //        userMenu.visibleProperty().bind(Authenticator.isAuth);
+
+        //instructions à exécuter lors de cet événement
+//        PaSocketMessageLogin pasl = new PaSocketMessageLogin("test", "test");
+//        PaSocketClient.sendObject(pasl);
+
     }
 
     @FXML

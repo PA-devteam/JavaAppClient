@@ -7,7 +7,6 @@ import javafx.scene.Scene;
 import javafx.stage.Stage;
 import resources.ResourceLoader;
 import screens.Screens;
-import screens.ScreensManager;
 import sockets.PaSocketClient;
 
 
@@ -65,13 +64,13 @@ public class app extends Application {
             PaSocketClient client = new PaSocketClient(ip, port);
 
             // Check if the client has established connection to the server
-            if(client.isAlive()) {
+//            if(client.isAlive()) {
                 // Call Start method from Thread Class, init a new thread and call run method
                 client.start();
-            } else {
-                // Otherwise, notify the user of the socket failed error
-                ScreensManager.setContent(Screens.SOCKET_FAILED);
-            }
+//            } else {
+//                // Otherwise, notify the user of the socket failed error
+//                ScreensManager.setContent(Screens.SOCKET_FAILED);
+//            }
         } else {
             System.err.println("Cannot start application, no root found");
         }

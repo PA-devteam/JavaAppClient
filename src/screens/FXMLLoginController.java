@@ -25,6 +25,8 @@ import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.GridPane;
 import security.Authenticator;
+import sockets.PaSocketClient;
+import sockets.PaSocketMessageLogin;
 
 /**
  * FXML Controller class
@@ -85,12 +87,16 @@ public class FXMLLoginController implements Initializable {
     
     private void login() {
         System.out.println("login");
+        
+        PaSocketMessageLogin pasl = new PaSocketMessageLogin("test", "test");
+        PaSocketClient.sendObject(pasl);           
+        
 
-        if(Authenticator.login(userName.getText(), userPassword.getText())) {
-            ScreensManager.setContent(Screens.WORKSPACE);
-        } else {
-            System.err.println("Authentication failed");
-        }        
+//        if(Authenticator.login(userName.getText(), userPassword.getText())) {
+//            ScreensManager.setContent(Screens.WORKSPACE);
+//        } else {
+//            System.err.println("Authentication failed");
+//        }        
     }
     
     private void register() {
