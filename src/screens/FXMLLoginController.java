@@ -8,6 +8,9 @@ package screens;
 import screens.Screens;
 import screens.ScreensManager;
 import java.io.IOException;
+import java.lang.reflect.Field;
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
 import java.net.URL;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
@@ -33,7 +36,7 @@ import sockets.PaSocketMessageLogin;
  *
  * @author sebastien
  */
-public class FXMLLoginController implements Initializable {
+public class FXMLLoginController implements Initializable, ScreensSubmitable {
 
     @FXML
     private GridPane paneLogin;
@@ -57,7 +60,8 @@ public class FXMLLoginController implements Initializable {
                 if (ke.getCode().equals(KeyCode.ENTER))
                 {
                     System.out.println("ENTER");
-                    login();
+//                    login();
+                    submit();
                 }
             }
         });
@@ -72,7 +76,8 @@ public class FXMLLoginController implements Initializable {
         switch(side.toLowerCase()) {
             case "ok":
                 System.out.println("case btn ok");
-                login();
+                //login();
+                submit();
                 break;
             case "register":
                 System.out.println("case btn register");
@@ -85,22 +90,85 @@ public class FXMLLoginController implements Initializable {
         }
     } 
     
-    private void login() {
-        System.out.println("login");
-        
-        PaSocketMessageLogin pasl = new PaSocketMessageLogin("test", "test");
-        PaSocketClient.sendObject(pasl);           
-        
-
-//        if(Authenticator.login(userName.getText(), userPassword.getText())) {
-//            ScreensManager.setContent(Screens.WORKSPACE);
-//        } else {
-//            System.err.println("Authentication failed");
-//        }        
-    }
+//    private void login() {
+//        System.out.println("login");
+//        
+////        PaSocketMessageLogin pasl = new PaSocketMessageLogin("test", "test");
+////        PaSocketClient.sendObject(pasl);           
+//        
+//
+////        if(Authenticator.login(userName.getText(), userPassword.getText())) {
+////            ScreensManager.setContent(Screens.WORKSPACE);
+////        } else {
+////            System.err.println("Authentication failed");
+////        }        
+//    }
     
     private void register() {
         System.out.println("register");
         ScreensManager.setContent(Screens.REGISTER);
+    }
+
+    /**
+     * @return the userName
+     */
+    public String getUserName() {
+        return userName.getText();
+    }
+
+    /**
+     * @param userName the userName to set
+     */
+    public void setUserName(TextField userName) {
+        this.userName = userName;
+    }
+
+    /**
+     * @return the userPassword
+     */
+    public String getUserPassword() {
+        return userPassword.getText();
+    }
+
+    /**
+     * @param userPassword the userPassword to set
+     */
+    public void setUserPassword(PasswordField userPassword) {
+        this.userPassword = userPassword;
+    }
+
+    @Override
+    public void submit() {
+        System.out.println("Submit");
+
+        PaSocketMessageLogin o = new PaSocketMessageLogin();
+        
+        Field[] fields = this.getClass().getDeclaredFields();
+
+        if (fields.length > 0) {
+            for (Field field : fields) {
+                if (field.getType().isAssignableFrom(TextField.class) || field.getType().isAssignableFrom(PasswordField.class)) {
+                    try {
+                        String cap = field.getName().substring(0, 1).toUpperCase() + field.getName().substring(1);
+
+                        Method setter = o.getClass().getMethod("set" + cap, field.getClass().getTypeName().getClass());
+
+                        Method getter = this.getClass().getMethod("get" + cap);
+
+                        setter.invoke(o, getter.invoke(this));
+                    } catch (NoSuchMethodException ex) {
+                        System.err.println("Method does not exist");
+                    } catch (IllegalArgumentException ex) {
+                        Logger.getLogger(FXMLLoginController.class.getName()).log(Level.SEVERE, null, ex);
+                    } catch (IllegalAccessException ex) {
+                        Logger.getLogger(FXMLLoginController.class.getName()).log(Level.SEVERE, null, ex);
+                    } catch (InvocationTargetException ex) {
+                        Logger.getLogger(FXMLLoginController.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+                }
+            }
+            
+            PaSocketClient.sendObject(o); 
+        } 
     }
 }
