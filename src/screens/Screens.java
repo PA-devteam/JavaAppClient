@@ -5,6 +5,7 @@ public enum Screens {
     LOGIN("Login"),
     REGISTER("Register"),
     WORKSPACE("Workspace"),
+    NOTIFICATION("Notification"),
     NOT_FOUND("Error404"),
     SOCKET_FAILED("ErrorSocketFailed");
 
