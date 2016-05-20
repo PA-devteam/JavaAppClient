@@ -26,7 +26,6 @@ import javafx.scene.layout.GridPane;
 import security.Authenticator;
 import sockets.PaSocketAction;
 import sockets.PaSocketClient;
-import sockets.PaSocketMessageLogin;
 import sockets.PaSocketMessageRegister;
 
 /**
@@ -35,9 +34,27 @@ import sockets.PaSocketMessageRegister;
  * @author sebastien
  */
 public class FXMLRegisterController implements Initializable, ScreensSubmitable {
-    
+
     @FXML
     private GridPane paneRegister;
+
+    @FXML
+    private TextField userFirstName;
+
+    @FXML
+    private TextField userLastName;
+
+    @FXML
+    private TextField userName;
+
+    @FXML
+    private TextField userEmail;
+
+    @FXML
+    private PasswordField userPassword;
+
+    @FXML
+    private PasswordField userConfirmPassword;
 
     /**
      * Initializes the controller class.
@@ -49,23 +66,21 @@ public class FXMLRegisterController implements Initializable, ScreensSubmitable 
             public void handle(KeyEvent ke) {
                 if (ke.getCode().equals(KeyCode.ENTER)) {
                     System.out.println("ENTER");
-//                    register();
                     submit();
                 }
             }
         });
     }
-    
+
     @FXML
     private void handleClick(ActionEvent event) throws IOException {
         Button mItem = (Button) event.getSource();
-        
+
         String side = mItem.getText();
-        
+
         switch (side.toLowerCase()) {
             case "ok":
                 System.out.println("ok");
-//                register();
                 submit();
                 break;
             case "cancel":
@@ -78,34 +93,13 @@ public class FXMLRegisterController implements Initializable, ScreensSubmitable 
                 break;
         }
     }
-    
-//    private void register() {
-//        System.out.println("register");
-//        
-//        PaSocketMessageRegister pasr = new PaSocketMessageRegister();
-//        pasr.setAction(PaSocketAction.REGISTER);
-//        pasr.setUserFirstName("seb");
-//        pasr.setUserLastName("fricker");
-//        pasr.setUserName("sfricker");
-//        pasr.setUserEmail("test@test.com");
-//        pasr.setUserPassword("1234");
-//        pasr.setUserConfirmPassword("1234");
-//        
-//        PaSocketClient.sendObject(pasr);
-//
-////        if(Authenticator.register()) {
-////            ScreensManager.setContent(Screens.WORKSPACE);
-////        } else {
-////            System.err.println("Registration failed");
-////        }
-//    }
 
     @Override
     public void submit() {
         System.out.println("Submit");
 
         PaSocketMessageRegister o = new PaSocketMessageRegister();
-        
+
         Field[] fields = this.getClass().getDeclaredFields();
 
         if (fields.length > 0) {
@@ -115,7 +109,6 @@ public class FXMLRegisterController implements Initializable, ScreensSubmitable 
                         String cap = field.getName().substring(0, 1).toUpperCase() + field.getName().substring(1);
 
                         Method setter = o.getClass().getMethod("set" + cap, field.getClass().getTypeName().getClass());
-
                         Method getter = this.getClass().getMethod("get" + cap);
 
                         setter.invoke(o, getter.invoke(this));
@@ -130,8 +123,92 @@ public class FXMLRegisterController implements Initializable, ScreensSubmitable 
                     }
                 }
             }
-            
-            PaSocketClient.sendObject(o); 
-        } 
+
+            PaSocketClient.sendObject(o);
+        }
+    }
+
+    /**
+     * @return the userFirstName
+     */
+    public String getUserFirstName() {
+        return userFirstName.getText();
+    }
+
+    /**
+     * @param userFirstName the userFirstName to set
+     */
+    public void setUserFirstName(TextField userFirstName) {
+        this.userFirstName = userFirstName;
+    }
+
+    /**
+     * @return the userLastName
+     */
+    public String getUserLastName() {
+        return userLastName.getText();
+    }
+
+    /**
+     * @param userLastName the userLastName to set
+     */
+    public void setUserLastName(TextField userLastName) {
+        this.userLastName = userLastName;
+    }
+
+    /**
+     * @return the userName
+     */
+    public String getUserName() {
+        return userName.getText();
+    }
+
+    /**
+     * @param userName the userName to set
+     */
+    public void setUserName(TextField userName) {
+        this.userName = userName;
+    }
+
+    /**
+     * @return the userEmail
+     */
+    public String getUserEmail() {
+        return userEmail.getText();
+    }
+
+    /**
+     * @param userEmail the userEmail to set
+     */
+    public void setUserEmail(TextField userEmail) {
+        this.userEmail = userEmail;
+    }
+
+    /**
+     * @return the userPassword
+     */
+    public String getUserPassword() {
+        return userPassword.getText();
+    }
+
+    /**
+     * @param userPassword the userPassword to set
+     */
+    public void setUserPassword(PasswordField userPassword) {
+        this.userPassword = userPassword;
+    }
+
+    /**
+     * @return the userConfirmPassword
+     */
+    public String getUserConfirmPassword() {
+        return userConfirmPassword.getText();
+    }
+
+    /**
+     * @param userConfirmPassword the userConfirmPassword to set
+     */
+    public void setUserConfirmPassword(PasswordField userConfirmPassword) {
+        this.userConfirmPassword = userConfirmPassword;
     }
 }

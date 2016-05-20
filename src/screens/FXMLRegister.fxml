@@ -42,18 +42,18 @@
          </padding>
       </Label>
       <Separator GridPane.columnIndex="1" GridPane.columnSpan="3" />
-      <TextField promptText="firstname" GridPane.columnIndex="2" GridPane.rowIndex="3" />
       <Label alignment="CENTER" contentDisplay="CENTER" text="First name" textAlignment="RIGHT" GridPane.columnIndex="2" GridPane.rowIndex="2" />
+      <TextField promptText="firstname" fx:id="userFirstName" GridPane.columnIndex="2" GridPane.rowIndex="3" />
       <Label alignment="CENTER" contentDisplay="CENTER" text="Last name" textAlignment="RIGHT" GridPane.columnIndex="2" GridPane.rowIndex="4" />
-      <TextField promptText="lastname" GridPane.columnIndex="2" GridPane.rowIndex="5" />
+      <TextField promptText="lastname" fx:id="userLastName" GridPane.columnIndex="2" GridPane.rowIndex="5" />
       <Label alignment="CENTER" contentDisplay="CENTER" text="Username" textAlignment="RIGHT" GridPane.columnIndex="2" GridPane.rowIndex="6" />
-      <TextField promptText="username" GridPane.columnIndex="2" GridPane.rowIndex="7" />
+      <TextField promptText="username" fx:id="userName" GridPane.columnIndex="2" GridPane.rowIndex="7" />
       <Label alignment="CENTER" contentDisplay="CENTER" text="Email" textAlignment="RIGHT" GridPane.columnIndex="2" GridPane.rowIndex="8" />
-      <TextField promptText="email" GridPane.columnIndex="2" GridPane.rowIndex="9" />
+      <TextField promptText="email" fx:id="userEmail" GridPane.columnIndex="2" GridPane.rowIndex="9" />
       <Label text="Password" GridPane.columnIndex="2" GridPane.rowIndex="10" />
-      <PasswordField promptText="password" GridPane.columnIndex="2" GridPane.rowIndex="11" />
+      <PasswordField promptText="password" fx:id="userPassword" GridPane.columnIndex="2" GridPane.rowIndex="11" />
       <Label alignment="CENTER" contentDisplay="CENTER" text="Confirm password" textAlignment="RIGHT" GridPane.columnIndex="2" GridPane.rowIndex="12" />
-      <PasswordField promptText="confirmpassword" GridPane.columnIndex="2" GridPane.rowIndex="13" />
+      <PasswordField promptText="confirmpassword" fx:id="userConfirmPassword" GridPane.columnIndex="2" GridPane.rowIndex="13" />
       <HBox alignment="CENTER_RIGHT" nodeOrientation="LEFT_TO_RIGHT" spacing="6.0" GridPane.columnIndex="2" GridPane.halignment="RIGHT" GridPane.hgrow="ALWAYS" GridPane.rowIndex="14">
          <children>
             <Button mnemonicParsing="false" onAction="#handleClick" styleClass="btn"  text="OK" GridPane.columnIndex="2" GridPane.rowIndex="12">
