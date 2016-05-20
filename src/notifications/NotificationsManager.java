@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package notifications;
 
 import javafx.geometry.Bounds;
@@ -17,10 +12,6 @@ import javafx.stage.Window;
 import screens.Screens;
 import screens.ScreensManager;
 
-/**
- *
- * @author sebastien
- */
 public class NotificationsManager {
         
     public static void pop() {
@@ -56,5 +47,25 @@ public class NotificationsManager {
         alert.setContentText(content);
 
         alert.showAndWait();        
+    }
+    
+    public static void info(String header, String content) {
+        alert(AlertType.INFORMATION, "Information", header, content);
+    }
+    
+    public static void success(String header, String content) {
+        alert(AlertType.CONFIRMATION, "Information", header, content);
+    }
+    
+    public static void warn(String header, String content) {
+        alert(AlertType.WARNING, "Information", header, content);
+    }
+    
+    public static void error(String header, String content) {
+        alert(AlertType.ERROR, "Information", header, content);
+    }
+    
+    public static void debug(String header, String content) {
+        alert(AlertType.NONE, "Debug", header, content);
     }
 }
