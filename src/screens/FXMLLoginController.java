@@ -18,16 +18,13 @@ import java.util.logging.Logger;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
-import javafx.scene.control.MenuItem;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.GridPane;
-import security.Authenticator;
 import sockets.PaSocketClient;
 import sockets.PaSocketMessageLogin;
 
@@ -60,8 +57,7 @@ public class FXMLLoginController implements Initializable, ScreensSubmitable {
                 if (ke.getCode().equals(KeyCode.ENTER))
                 {
                     System.out.println("ENTER");
-//                    login();
-                    submit();
+//                    submit();
                 }
             }
         });
@@ -76,7 +72,6 @@ public class FXMLLoginController implements Initializable, ScreensSubmitable {
         switch(side.toLowerCase()) {
             case "ok":
                 System.out.println("case btn ok");
-                //login();
                 submit();
                 break;
             case "register":
@@ -89,20 +84,6 @@ public class FXMLLoginController implements Initializable, ScreensSubmitable {
                 break;
         }
     } 
-    
-//    private void login() {
-//        System.out.println("login");
-//        
-////        PaSocketMessageLogin pasl = new PaSocketMessageLogin("test", "test");
-////        PaSocketClient.sendObject(pasl);           
-//        
-//
-////        if(Authenticator.login(userName.getText(), userPassword.getText())) {
-////            ScreensManager.setContent(Screens.WORKSPACE);
-////        } else {
-////            System.err.println("Authentication failed");
-////        }        
-//    }
     
     private void register() {
         System.out.println("register");

@@ -66,14 +66,14 @@ public class app extends Application {
             PaSocketClient client = new PaSocketClient(ip, port);
 
             // Check if the client has established connection to the server
-            if(client.isAlive()) {
+//            if(client.isAlive()) {
                 // Call Start method from Thread Class, init a new thread and call run method
                 client.start();
-            } else {
-                // Otherwise, notify the user of the socket failed error
-                //ScreensManager.setContent(Screens.SOCKET_FAILED);
-                NotificationsManager.alert(Alert.AlertType.ERROR, "Erreur", "Erreur de connexion", "La connexion au serveur a été interrompue");
-            }
+//            } else {
+//                // Otherwise, notify the user of the socket failed error
+//                //ScreensManager.setContent(Screens.SOCKET_FAILED);
+//                NotificationsManager.alert(Alert.AlertType.ERROR, "Erreur", "Erreur de connexion", "La connexion au serveur a été interrompue");
+//            }
         } else {
             System.err.println("Cannot start application, no root found");
         }
