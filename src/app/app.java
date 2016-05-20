@@ -12,21 +12,10 @@ import config.ConfigManager;
 
 public class app extends Application {
 
-//    // Socket serveur ip to reach
-//    private String ip;
-//    // Socket serveur port to reach
-//    private int port;
-//    // Application title
-//    private String frameTitle;
-//    // Application width
-//    private int frameWidth;
-//    // Application height
-//    private int frameHeight;
-
     @Override
     public void start(Stage primaryStage) throws Exception {
         ConfigManager.load("config.properties");
-                
+
         /*****************************************************************/
         /**************************** EXAMPLE ****************************/
         // Set new property
@@ -34,67 +23,79 @@ public class app extends Application {
         // Save the file
         ConfigManager.save("config.properties");
         /*****************************************************************/
-        
-        // Declare new root parent for application scene
-        Parent root;
 
-        // Initialise root by loading screen content
-        root = (Parent) ResourceLoader.loadView(Screens.MAIN);
+        if (!ConfigManager.isEmpty()) {
+            // Declare new root parent for application scene
+            Parent root;
 
-        // Check if root has been loaded
-        if(root != null) {
-            // Socket serveur ip to reach
-            String ip = ConfigManager.getStringProperty("ss_ip");
-            // Socket serveur port to reach
-            int port = ConfigManager.getIntProperty("ss_port");
-            // Application title
-            String frameTitle = ConfigManager.getStringProperty("app_name_fr");
-            // Application width
-            int frameWidth = ConfigManager.getIntProperty("app_width");
-            // Application height
-            int frameHeight = ConfigManager.getIntProperty("app_height");
+            // Initialise root by loading screen content
+            root = (Parent) ResourceLoader.loadView(Screens.MAIN);
 
-            // Intialise a new scene from root
-            Scene scene = new Scene(root);
+            // Check if root has been loaded
+            if (root != null) {
+                // Socket serveur ip to reach
+                String ip = ConfigManager.getStringProperty("ss_ip");
+                // Socket serveur port to reach
+                int port = ConfigManager.getIntProperty("ss_port");
+                // Application title
+                String frameTitle = ConfigManager.getStringProperty("app_name_fr");
+                // Application width
+                int frameWidth = ConfigManager.getIntProperty("app_width");
+                // Application height
+                int frameHeight = ConfigManager.getIntProperty("app_height");
 
-            // Load FXML CSS theme file
-            ResourceLoader.loadStyle("FXMLMainStyle.css");
-            /*************************** JavaFx Css reference ***************************/
-            /* https://docs.oracle.com/javafx/2/api/javafx/scene/doc-files/cssref.html  */
-            /****************************************************************************/
+                // Intialise a new scene from root
+                Scene scene = new Scene(root);
 
-            // Load font 'fontawesome' (only containing icons)
-            ResourceLoader.loadFont("fontawesome-webfont.ttf", 12);
-            /************ Font Awesome icons website ************/
-            /* https://fortawesome.github.io/Font-Awesome/icons */
-            /****************************************************/
+                // Load FXML CSS theme file
+                ResourceLoader.loadStyle("FXMLMainStyle.css");
+                /**
+                 * ************************* JavaFx Css reference **************************
+                 */
+                /* https://docs.oracle.com/javafx/2/api/javafx/scene/doc-files/cssref.html  */
+                /**
+                 * *************************************************************************
+                 */
 
-            // Set application main frame width
-            primaryStage.setMinWidth(frameWidth);
-            // Set application main frame height
-            primaryStage.setMinHeight(frameHeight);
-            // Set application main frame title
-            primaryStage.setTitle(frameTitle);
+                // Load font 'fontawesome' (only containing icons)
+                ResourceLoader.loadFont("fontawesome-webfont.ttf", 12);
+                /**
+                 * ********** Font Awesome icons website ***********
+                 */
+                /* https://fortawesome.github.io/Font-Awesome/icons */
+                /**
+                 * *************************************************
+                 */
 
-            // Apply scene into application primary scene
-            primaryStage.setScene(scene);
-            // Show the primary stage in application
-            primaryStage.show();
+                // Set application main frame width
+                primaryStage.setMinWidth(frameWidth);
+                // Set application main frame height
+                primaryStage.setMinHeight(frameHeight);
+                // Set application main frame title
+                primaryStage.setTitle(frameTitle);
 
-            // Initialise a new socket client
-            PaSocketClient client = new PaSocketClient(ip, port);
+                // Apply scene into application primary scene
+                primaryStage.setScene(scene);
+                // Show the primary stage in application
+                primaryStage.show();
 
-            // Check if the client has established connection to the server
-//            if(client.isAlive()) {
+                // Initialise a new socket client
+                PaSocketClient client = new PaSocketClient(ip, port);
+
+                // Check if the client has established connection to the server
+                //            if(client.isAlive()) {
                 // Call Start method from Thread Class, init a new thread and call run method
                 client.start();
-//            } else {
-//                // Otherwise, notify the user of the socket failed error
-//                //ScreensManager.setContent(Screens.SOCKET_FAILED);
-//                NotificationsManager.alert(Alert.AlertType.ERROR, "Erreur", "Erreur de connexion", "La connexion au serveur a été interrompue");
-//            }
+                //            } else {
+                //                // Otherwise, notify the user of the socket failed error
+                //                //ScreensManager.setContent(Screens.SOCKET_FAILED);
+                //                NotificationsManager.alert(Alert.AlertType.ERROR, "Erreur", "Erreur de connexion", "La connexion au serveur a été interrompue");
+                //            }
+            } else {
+                System.err.println("Cannot start application, no root found");
+            }
         } else {
-            System.err.println("Cannot start application, no root found");
+            System.err.println("Cannot start application, no config file found");
         }
     }
 

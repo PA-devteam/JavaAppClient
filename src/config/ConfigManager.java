@@ -25,6 +25,10 @@ public class ConfigManager {
     public static boolean save() {
         return save(propsFileName);
     }
+    
+    public static boolean isEmpty() {
+        return props.isEmpty();
+    }
 
     public static boolean save(String pPropFilePath) {
         boolean saved;
