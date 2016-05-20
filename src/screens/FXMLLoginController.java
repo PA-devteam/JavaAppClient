@@ -27,6 +27,7 @@ import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.GridPane;
 import sockets.PaSocketClient;
 import sockets.PaSocketMessageLogin;
+import config.ConfigManager;
 
 /**
  * FXML Controller class
@@ -49,6 +50,9 @@ public class FXMLLoginController implements Initializable, ScreensSubmitable {
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
+        // Get the last connected user
+        userName.setText(ConfigManager.getStringProperty("login_last_logged"));
+        
         paneLogin.setOnKeyPressed(new EventHandler<KeyEvent>()
         {
             @Override
@@ -57,7 +61,7 @@ public class FXMLLoginController implements Initializable, ScreensSubmitable {
                 if (ke.getCode().equals(KeyCode.ENTER))
                 {
                     System.out.println("ENTER");
-//                    submit();
+                    submit();
                 }
             }
         });

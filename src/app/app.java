@@ -4,29 +4,37 @@ import javafx.application.Application;
 import static javafx.application.Application.launch;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Alert;
 import javafx.stage.Stage;
 import resources.ResourceLoader;
 import screens.Screens;
 import sockets.PaSocketClient;
-import notifications.NotificationsManager;
-
+import config.ConfigManager;
 
 public class app extends Application {
 
-    // Socket serveur ip to reach
-    private final String ip = "127.0.0.1";
-    // Socket serveur port to reach
-    private final int port = 3003;
-    // Application title
-    private final String frameTitle = "P.A.G.E. (Programmation Avancée - Gestion d'Equations)";
-    // Application width
-    private final int frameWidth = 640;
-    // Application height
-    private final int frameHeight = 480;
+//    // Socket serveur ip to reach
+//    private String ip;
+//    // Socket serveur port to reach
+//    private int port;
+//    // Application title
+//    private String frameTitle;
+//    // Application width
+//    private int frameWidth;
+//    // Application height
+//    private int frameHeight;
 
     @Override
     public void start(Stage primaryStage) throws Exception {
+        ConfigManager.load("config.properties");
+                
+        /*****************************************************************/
+        /**************************** EXAMPLE ****************************/
+        // Set new property
+        ConfigManager.setProperty("login_last_logged", "user666");
+        // Save the file
+        ConfigManager.save("config.properties");
+        /*****************************************************************/
+        
         // Declare new root parent for application scene
         Parent root;
 
@@ -35,6 +43,17 @@ public class app extends Application {
 
         // Check if root has been loaded
         if(root != null) {
+            // Socket serveur ip to reach
+            String ip = ConfigManager.getStringProperty("ss_ip");
+            // Socket serveur port to reach
+            int port = ConfigManager.getIntProperty("ss_port");
+            // Application title
+            String frameTitle = ConfigManager.getStringProperty("app_name_fr");
+            // Application width
+            int frameWidth = ConfigManager.getIntProperty("app_width");
+            // Application height
+            int frameHeight = ConfigManager.getIntProperty("app_height");
+
             // Intialise a new scene from root
             Scene scene = new Scene(root);
 
