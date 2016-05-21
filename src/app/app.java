@@ -7,8 +7,8 @@ import javafx.scene.Scene;
 import javafx.stage.Stage;
 import resources.ResourceLoader;
 import screens.Screens;
-import sockets.PaSocketClient;
 import config.ConfigManager;
+import sockets.PaSocket;
 
 public class app extends Application {
 
@@ -49,23 +49,15 @@ public class app extends Application {
 
                 // Load FXML CSS theme file
                 ResourceLoader.loadStyle("FXMLMainStyle.css");
-                /**
-                 * ************************* JavaFx Css reference **************************
-                 */
-                /* https://docs.oracle.com/javafx/2/api/javafx/scene/doc-files/cssref.html  */
-                /**
-                 * *************************************************************************
-                 */
+                /************************** JavaFx Css reference ***************************/
+                /* https://docs.oracle.com/javafx/2/api/javafx/scene/doc-files/cssref.html */
+                /***************************************************************************/
 
                 // Load font 'fontawesome' (only containing icons)
                 ResourceLoader.loadFont("fontawesome-webfont.ttf", 12);
-                /**
-                 * ********** Font Awesome icons website ***********
-                 */
+                /************ Font Awesome icons website ************/
                 /* https://fortawesome.github.io/Font-Awesome/icons */
-                /**
-                 * *************************************************
-                 */
+                /****************************************************/
 
                 // Set application main frame width
                 primaryStage.setMinWidth(frameWidth);
@@ -79,18 +71,8 @@ public class app extends Application {
                 // Show the primary stage in application
                 primaryStage.show();
 
-                // Initialise a new socket client
-                PaSocketClient client = new PaSocketClient(ip, port);
-
-                // Check if the client has established connection to the server
-                //            if(client.isAlive()) {
-                // Call Start method from Thread Class, init a new thread and call run method
-                client.start();
-                //            } else {
-                //                // Otherwise, notify the user of the socket failed error
-                //                //ScreensManager.setContent(Screens.SOCKET_FAILED);
-                //                NotificationsManager.alert(Alert.AlertType.ERROR, "Erreur", "Erreur de connexion", "La connexion au serveur a été interrompue");
-                //            }
+                // Initialise a new socket connection
+                PaSocket.initialise(ip, port);
             } else {
                 System.err.println("Cannot start application, no root found");
             }

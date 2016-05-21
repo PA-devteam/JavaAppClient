@@ -6,7 +6,6 @@ public class PaSocketMessage implements Serializable {
 
     private PaSocketAction action;
 
-
     /**
      * @return the action
      */

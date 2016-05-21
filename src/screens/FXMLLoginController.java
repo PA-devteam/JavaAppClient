@@ -1,12 +1,5 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package screens;
 
-import screens.Screens;
-import screens.ScreensManager;
 import java.io.IOException;
 import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
@@ -29,11 +22,6 @@ import sockets.PaSocketClient;
 import sockets.PaSocketMessageLogin;
 import config.ConfigManager;
 
-/**
- * FXML Controller class
- *
- * @author sebastien
- */
 public class FXMLLoginController implements Initializable, ScreensSubmitable {
 
     @FXML
@@ -128,6 +116,7 @@ public class FXMLLoginController implements Initializable, ScreensSubmitable {
 
         PaSocketMessageLogin o = new PaSocketMessageLogin();
         
+        // Using class reflection to store values from the current controller to new object
         Field[] fields = this.getClass().getDeclaredFields();
 
         if (fields.length > 0) {

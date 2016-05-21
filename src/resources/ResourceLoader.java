@@ -22,8 +22,6 @@ public class ResourceLoader {
             result = null;
         }
 
-        System.out.println(result == null);
-        
         return result;
     }
     

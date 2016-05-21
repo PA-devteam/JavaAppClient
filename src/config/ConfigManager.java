@@ -4,8 +4,9 @@ import java.io.*;
 import java.util.Properties;
 
 public class ConfigManager {
-
+    // Name of the properties file previously loaded
     private static String propsFileName = "";
+    // Loaded properties
     public static Properties props = new Properties();
 
     public static void load(String pPropFilePath) {
@@ -13,6 +14,7 @@ public class ConfigManager {
             // Load properties file
             props.load(input);
 
+            // Define the properties file name
             propsFileName = pPropFilePath;
 
             // Close input stream
@@ -21,11 +23,11 @@ public class ConfigManager {
             System.err.println(e);
         }
     }
-    
+
     public static boolean save() {
         return save(propsFileName);
     }
-    
+
     public static boolean isEmpty() {
         return props.isEmpty();
     }
@@ -34,11 +36,11 @@ public class ConfigManager {
         boolean saved;
 
         Properties tmp = (Properties) props.clone();
-        
+
         try {
             File f = new File(pPropFilePath);
             OutputStream out = new FileOutputStream( f );
-            tmp.store(out,"");
+            tmp.store(out,""); // Secondary param is for commentaries
             out.close();
             saved = true;
         }
@@ -53,20 +55,20 @@ public class ConfigManager {
     public static void setProperty(String pPropKey, String pPropVal) {
         props.setProperty(pPropKey, pPropVal);
     }
-    
+
     public static String getStringProperty(String pProp) {
         return props.getProperty(pProp);
     }
 
     public static int getIntProperty(String pProp) {
-      int res;
+        int res;
 
-      try {
-         res = Integer.parseInt(props.getProperty(pProp));
-      } catch (NumberFormatException e) {
-          res = -1;
-      }
+        try {
+            res = Integer.parseInt(props.getProperty(pProp));
+        } catch (NumberFormatException e) {
+            res = -1;
+        }
 
-      return res;
+        return res;
     }
 }

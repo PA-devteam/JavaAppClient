@@ -49,22 +49,28 @@ public class NotificationsManager {
         alert.showAndWait();        
     }
     
+    
+    /** ALERT METHOD SHORTHAND HELPERS **/
     public static void info(String header, String content) {
         alert(AlertType.INFORMATION, "Information", header, content);
     }
     
+    /** ALERT METHOD SHORTHAND HELPERS **/
     public static void success(String header, String content) {
-        alert(AlertType.CONFIRMATION, "Information", header, content);
+        alert(AlertType.CONFIRMATION, "Succès", header, content);
     }
     
+    /** ALERT METHOD SHORTHAND HELPERS **/
     public static void warn(String header, String content) {
-        alert(AlertType.WARNING, "Information", header, content);
+        alert(AlertType.WARNING, "Avertissement", header, content);
     }
     
+    /** ALERT METHOD SHORTHAND HELPERS **/
     public static void error(String header, String content) {
-        alert(AlertType.ERROR, "Information", header, content);
+        alert(AlertType.ERROR, "Erreur", header, content);
     }
     
+    /** ALERT METHOD SHORTHAND HELPERS **/
     public static void debug(String header, String content) {
         alert(AlertType.NONE, "Debug", header, content);
     }

@@ -4,16 +4,17 @@ import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.Label;
+import sockets.PaSocket;
 
-public class FXMLNotificationController implements Initializable {
+public class FXMLErrorSocketFailedController implements Initializable {
 
-    @FXML
-    private Label notificationNb;
-    
     @Override
     public void initialize(URL url, ResourceBundle rb) {
 
-        
-    }    
+    }
+    
+    @FXML
+    private void reconnect() {
+        PaSocket.initialise();
+    }
 }

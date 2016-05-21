@@ -7,6 +7,7 @@ public enum Screens {
     WORKSPACE("Workspace"),
     NOTIFICATION("Notification"),
     NOT_FOUND("Error404"),
+    SOCKET_RETRY("SocketRetry"),
     SOCKET_FAILED("ErrorSocketFailed");
 
     private final String view;
