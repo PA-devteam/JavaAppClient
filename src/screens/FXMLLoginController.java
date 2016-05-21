@@ -22,7 +22,7 @@ import sockets.PaSocketClient;
 import sockets.PaSocketMessageLogin;
 import config.ConfigManager;
 
-public class FXMLLoginController implements Initializable, ScreensSubmitable {
+public class FXMLLoginController extends ScreensController {
 
     @FXML
     private GridPane paneLogin;
@@ -42,8 +42,10 @@ public class FXMLLoginController implements Initializable, ScreensSubmitable {
     /**
      * Initializes the controller class.
      */
-    @Override
+    
     public void initialize(URL url, ResourceBundle rb) {
+        super.initialize(url, rb);
+        
         // Get the last connected user
         userName.setText(ConfigManager.getStringProperty("login_last_logged"));
 
@@ -115,9 +117,17 @@ public class FXMLLoginController implements Initializable, ScreensSubmitable {
     public void setUserPassword(PasswordField userPassword) {
         this.userPassword = userPassword;
     }
-
+    
+    public void toggleFreeze(boolean frozen) {
+        super.toggleFreeze(frozen);
+        btnOk.setDisable(frozen);
+        btnCancel.setDisable(frozen);       
+    }
+    
     @Override
     public void submit() {
+        toggleFreeze(true);
+        
         ScreensManager.toggleLoadingBar();
         
         PaSocketMessageLogin o = new PaSocketMessageLogin();
@@ -126,10 +136,7 @@ public class FXMLLoginController implements Initializable, ScreensSubmitable {
         Field[] fields = this.getClass().getDeclaredFields();
 
         // Check if there are some fields to iterate
-        if (fields.length > 0) {
-            btnOk.setDisable(true);
-            btnCancel.setDisable(true);
-            
+        if (fields.length > 0) {           
             // Iterate overs fields
             for (Field field : fields) {
                 // Check field type
@@ -161,8 +168,8 @@ public class FXMLLoginController implements Initializable, ScreensSubmitable {
                     }
                 }
             }
-
-            PaSocketClient.sendObject(o);
+            
+            security.Authenticator.login(o);
         }
     }
 }

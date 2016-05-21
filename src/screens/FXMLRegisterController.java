@@ -23,7 +23,7 @@ import sockets.PaSocketAction;
 import sockets.PaSocketClient;
 import sockets.PaSocketMessageRegister;
 
-public class FXMLRegisterController implements Initializable, ScreensSubmitable {
+public class FXMLRegisterController extends ScreensController {
 
     @FXML
     private GridPane paneRegister;
@@ -89,9 +89,17 @@ public class FXMLRegisterController implements Initializable, ScreensSubmitable 
                 break;
         }
     }
+    
+    public void toggleFreeze(boolean frozen) {
+        super.toggleFreeze(frozen);
+        btnOk.setDisable(frozen);
+        btnCancel.setDisable(frozen);       
+    }    
 
     @Override
     public void submit() {
+        toggleFreeze(true);
+        
         ScreensManager.toggleLoadingBar();
         
         PaSocketMessageRegister o = new PaSocketMessageRegister();
@@ -101,9 +109,6 @@ public class FXMLRegisterController implements Initializable, ScreensSubmitable 
 
         // Check if there are some fields to iterate
         if (fields.length > 0) {
-            btnOk.setDisable(true);
-            btnCancel.setDisable(true);            
-            
             // Iterate overs fields
             for (Field field : fields) {
                 // Check field type
