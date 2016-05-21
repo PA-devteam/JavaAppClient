@@ -2,6 +2,7 @@ package screens;
 
 import resources.ResourceLoader;
 import java.util.Vector;
+import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.control.ProgressBar;
 import javafx.scene.layout.StackPane;
@@ -11,6 +12,7 @@ public class ScreensManager {
     public static Vector<Enum<Screens>> history = new Vector<Enum<Screens>>();
     public static StackPane container;
     public static ProgressBar loadingBar;
+    public static ScreensController controller;
 
     public static void cancel() {
         if(history.size() > 0) {
