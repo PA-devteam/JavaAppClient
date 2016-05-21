@@ -26,13 +26,19 @@ public class FXMLLoginController implements Initializable, ScreensSubmitable {
 
     @FXML
     private GridPane paneLogin;
-    
+
     @FXML
     private TextField userName;
-    
+
     @FXML
     private PasswordField userPassword;
     
+    @FXML
+    private Button btnOk;
+    
+    @FXML
+    private Button btnCancel;    
+
     /**
      * Initializes the controller class.
      */
@@ -40,7 +46,7 @@ public class FXMLLoginController implements Initializable, ScreensSubmitable {
     public void initialize(URL url, ResourceBundle rb) {
         // Get the last connected user
         userName.setText(ConfigManager.getStringProperty("login_last_logged"));
-        
+
         paneLogin.setOnKeyPressed(new EventHandler<KeyEvent>()
         {
             @Override
@@ -53,8 +59,8 @@ public class FXMLLoginController implements Initializable, ScreensSubmitable {
                 }
             }
         });
-    }    
-    
+    }
+
     @FXML
     private void handleClick(ActionEvent event) throws IOException {
         Button mItem = (Button) event.getSource();
@@ -75,8 +81,8 @@ public class FXMLLoginController implements Initializable, ScreensSubmitable {
                 System.out.println(side);
                 break;
         }
-    } 
-    
+    }
+
     private void register() {
         System.out.println("register");
         ScreensManager.setContent(Screens.REGISTER);
@@ -85,8 +91,8 @@ public class FXMLLoginController implements Initializable, ScreensSubmitable {
     /**
      * @return the userName
      */
-    public String getUserName() {
-        return userName.getText();
+    public TextField getUserName() {
+        return userName;
     }
 
     /**
@@ -99,8 +105,8 @@ public class FXMLLoginController implements Initializable, ScreensSubmitable {
     /**
      * @return the userPassword
      */
-    public String getUserPassword() {
-        return userPassword.getText();
+    public TextField getUserPassword() {
+        return userPassword;
     }
 
     /**
@@ -112,37 +118,51 @@ public class FXMLLoginController implements Initializable, ScreensSubmitable {
 
     @Override
     public void submit() {
-        System.out.println("Submit");
-
-        PaSocketMessageLogin o = new PaSocketMessageLogin();
+        ScreensManager.toggleLoadingBar();
         
+        PaSocketMessageLogin o = new PaSocketMessageLogin();
+
         // Using class reflection to store values from the current controller to new object
         Field[] fields = this.getClass().getDeclaredFields();
 
+        // Check if there are some fields to iterate
         if (fields.length > 0) {
+            btnOk.setDisable(true);
+            btnCancel.setDisable(true);
+            
+            // Iterate overs fields
             for (Field field : fields) {
+                // Check field type
                 if (field.getType().isAssignableFrom(TextField.class) || field.getType().isAssignableFrom(PasswordField.class)) {
                     try {
+                        // Capitalize first letter of current iterated field
                         String cap = field.getName().substring(0, 1).toUpperCase() + field.getName().substring(1);
 
+                        // Retrieve setter method from target object
                         Method setter = o.getClass().getMethod("set" + cap, field.getClass().getTypeName().getClass());
 
+                        // Retrieve getter method from origin object
                         Method getter = this.getClass().getMethod("get" + cap);
 
-                        setter.invoke(o, getter.invoke(this));
-                    } catch (NoSuchMethodException ex) {
-                        System.err.println("Method does not exist");
-                    } catch (IllegalArgumentException ex) {
-                        Logger.getLogger(FXMLLoginController.class.getName()).log(Level.SEVERE, null, ex);
-                    } catch (IllegalAccessException ex) {
-                        Logger.getLogger(FXMLLoginController.class.getName()).log(Level.SEVERE, null, ex);
-                    } catch (InvocationTargetException ex) {
-                        Logger.getLogger(FXMLLoginController.class.getName()).log(Level.SEVERE, null, ex);
+                        // Retrieve Textfield from current controller
+                        TextField t = (TextField) getter.invoke(this);
+
+                        // Disable current iterated field
+                        t.setDisable(true);
+
+                        // Call setter method on target object with value obtained by getter method
+                        setter.invoke(o, t.getText());
+                    } catch (IllegalArgumentException|IllegalAccessException|InvocationTargetException|NoSuchMethodException ex) {
+                        if(ex instanceof NoSuchMethodException) {
+                            System.err.println("Method does not exist");
+                        } else {
+                            Logger.getLogger(FXMLLoginController.class.getName()).log(Level.SEVERE, null, ex);
+                        }
                     }
                 }
             }
-            
-            PaSocketClient.sendObject(o); 
-        } 
+
+            PaSocketClient.sendObject(o);
+        }
     }
 }

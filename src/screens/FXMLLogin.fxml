@@ -48,12 +48,12 @@
       </Hyperlink>
       <HBox alignment="CENTER_RIGHT" nodeOrientation="LEFT_TO_RIGHT" spacing="6.0" GridPane.columnIndex="2" GridPane.halignment="RIGHT" GridPane.rowIndex="7" GridPane.vgrow="ALWAYS">
          <children>
-            <Button mnemonicParsing="false" onAction="#handleClick" styleClass="btn" text="OK" GridPane.columnIndex="2" GridPane.rowIndex="5">
+            <Button mnemonicParsing="false" fx:id="btnOk" onAction="#handleClick" styleClass="btn" text="OK" GridPane.columnIndex="2" GridPane.rowIndex="5">
                <GridPane.margin>
                   <Insets bottom="12.0" top="12.0" />
                </GridPane.margin>
             </Button>
-            <Button mnemonicParsing="false" onAction="#handleClick" styleClass="btn"  text="Register" />
+            <Button mnemonicParsing="false" fx:id="btnCancel" onAction="#handleClick" styleClass="btn"  text="Register" />
          </children>
          <GridPane.margin>
             <Insets bottom="12.0" top="12.0" />

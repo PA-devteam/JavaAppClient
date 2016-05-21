@@ -56,12 +56,12 @@
       <PasswordField promptText="confirmpassword" fx:id="userConfirmPassword" GridPane.columnIndex="2" GridPane.rowIndex="13" />
       <HBox alignment="CENTER_RIGHT" nodeOrientation="LEFT_TO_RIGHT" spacing="6.0" GridPane.columnIndex="2" GridPane.halignment="RIGHT" GridPane.hgrow="ALWAYS" GridPane.rowIndex="14">
          <children>
-            <Button mnemonicParsing="false" onAction="#handleClick" styleClass="btn"  text="OK" GridPane.columnIndex="2" GridPane.rowIndex="12">
+            <Button mnemonicParsing="false" fx:id="btnOk" onAction="#handleClick" styleClass="btn"  text="OK" GridPane.columnIndex="2" GridPane.rowIndex="12">
                <GridPane.margin>
                   <Insets bottom="12.0" top="12.0" />
                </GridPane.margin>
             </Button>
-            <Button mnemonicParsing="false" onAction="#handleClick" styleClass="btn" text="Cancel" />
+            <Button mnemonicParsing="false" fx:id="btnCancel" onAction="#handleClick" styleClass="btn" text="Cancel" />
          </children>
          <opaqueInsets>
             <Insets />

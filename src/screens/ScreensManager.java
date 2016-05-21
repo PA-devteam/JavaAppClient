@@ -3,12 +3,14 @@ package screens;
 import resources.ResourceLoader;
 import java.util.Vector;
 import javafx.scene.Node;
+import javafx.scene.control.ProgressBar;
 import javafx.scene.layout.StackPane;
 
 public class ScreensManager {
 
     public static Vector<Enum<Screens>> history = new Vector<Enum<Screens>>();
     public static StackPane container;
+    public static ProgressBar loadingBar;
 
     public static void cancel() {
         if(history.size() > 0) {
@@ -31,5 +33,11 @@ public class ScreensManager {
             
             history.add(view);
         }
+    }
+    
+    public static void toggleLoadingBar() {
+        boolean status = loadingBar.isDisabled();
+        loadingBar.setDisable(!status);
+        loadingBar.setProgress((status) ? -1 : 0);
     }
 }

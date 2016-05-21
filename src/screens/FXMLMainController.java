@@ -8,6 +8,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Menu;
 import javafx.scene.control.MenuItem;
+import javafx.scene.control.ProgressBar;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.StackPane;
 import security.Authenticator;
@@ -32,11 +33,17 @@ public class FXMLMainController implements Initializable {
     
     @FXML
     private Menu headerItems;
+    
+    @FXML
+    private ProgressBar loadingBar;
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         // Store the reference of the screens container
         ScreensManager.container = StackPaneMain;
+        
+        // Store the reference of the loading bar
+        ScreensManager.loadingBar = loadingBar;
 
         // Set the current view content
         ScreensManager.setContent(Screens.LOGIN);

@@ -45,6 +45,12 @@ public class FXMLRegisterController implements Initializable, ScreensSubmitable 
 
     @FXML
     private PasswordField userConfirmPassword;
+    
+    @FXML
+    private Button btnOk;
+    
+    @FXML
+    private Button btnCancel;      
 
     /**
      * Initializes the controller class.
@@ -86,31 +92,46 @@ public class FXMLRegisterController implements Initializable, ScreensSubmitable 
 
     @Override
     public void submit() {
-        System.out.println("Submit");
-
+        ScreensManager.toggleLoadingBar();
+        
         PaSocketMessageRegister o = new PaSocketMessageRegister();
 
         // Using class reflection to store values from the current controller to new object
         Field[] fields = this.getClass().getDeclaredFields();
 
+        // Check if there are some fields to iterate
         if (fields.length > 0) {
+            btnOk.setDisable(true);
+            btnCancel.setDisable(true);            
+            
+            // Iterate overs fields
             for (Field field : fields) {
+                // Check field type
                 if (field.getType().isAssignableFrom(TextField.class) || field.getType().isAssignableFrom(PasswordField.class)) {
                     try {
+                        // Capitalize first letter of current iterated field
                         String cap = field.getName().substring(0, 1).toUpperCase() + field.getName().substring(1);
 
+                        // Retrieve setter method from target object
                         Method setter = o.getClass().getMethod("set" + cap, field.getClass().getTypeName().getClass());
+
+                        // Retrieve getter method from origin object
                         Method getter = this.getClass().getMethod("get" + cap);
 
-                        setter.invoke(o, getter.invoke(this));
-                    } catch (NoSuchMethodException ex) {
-                        System.err.println("Method does not exist");
-                    } catch (IllegalArgumentException ex) {
-                        Logger.getLogger(FXMLLoginController.class.getName()).log(Level.SEVERE, null, ex);
-                    } catch (IllegalAccessException ex) {
-                        Logger.getLogger(FXMLRegisterController.class.getName()).log(Level.SEVERE, null, ex);
-                    } catch (InvocationTargetException ex) {
-                        Logger.getLogger(FXMLRegisterController.class.getName()).log(Level.SEVERE, null, ex);
+                        // Retrieve Textfield from current controller
+                        TextField t = (TextField) getter.invoke(this);
+
+                        // Disable current iterated field
+                        t.setDisable(true);
+
+                        // Call setter method on target object with value obtained by getter method
+                        setter.invoke(o, t.getText());
+                    } catch (IllegalArgumentException|IllegalAccessException|InvocationTargetException|NoSuchMethodException ex) {
+                        if(ex instanceof NoSuchMethodException) {
+                            System.err.println("Method does not exist");
+                        } else {
+                            Logger.getLogger(FXMLLoginController.class.getName()).log(Level.SEVERE, null, ex);
+                        }
                     }
                 }
             }
@@ -122,8 +143,8 @@ public class FXMLRegisterController implements Initializable, ScreensSubmitable 
     /**
      * @return the userFirstName
      */
-    public String getUserFirstName() {
-        return userFirstName.getText();
+    public TextField getUserFirstName() {
+        return userFirstName;
     }
 
     /**
@@ -136,8 +157,8 @@ public class FXMLRegisterController implements Initializable, ScreensSubmitable 
     /**
      * @return the userLastName
      */
-    public String getUserLastName() {
-        return userLastName.getText();
+    public TextField getUserLastName() {
+        return userLastName;
     }
 
     /**
@@ -150,8 +171,8 @@ public class FXMLRegisterController implements Initializable, ScreensSubmitable 
     /**
      * @return the userName
      */
-    public String getUserName() {
-        return userName.getText();
+    public TextField getUserName() {
+        return userName;
     }
 
     /**
@@ -164,8 +185,8 @@ public class FXMLRegisterController implements Initializable, ScreensSubmitable 
     /**
      * @return the userEmail
      */
-    public String getUserEmail() {
-        return userEmail.getText();
+    public TextField getUserEmail() {
+        return userEmail;
     }
 
     /**
@@ -178,8 +199,8 @@ public class FXMLRegisterController implements Initializable, ScreensSubmitable 
     /**
      * @return the userPassword
      */
-    public String getUserPassword() {
-        return userPassword.getText();
+    public PasswordField getUserPassword() {
+        return userPassword;
     }
 
     /**
@@ -192,8 +213,8 @@ public class FXMLRegisterController implements Initializable, ScreensSubmitable 
     /**
      * @return the userConfirmPassword
      */
-    public String getUserConfirmPassword() {
-        return userConfirmPassword.getText();
+    public PasswordField getUserConfirmPassword() {
+        return userConfirmPassword;
     }
 
     /**

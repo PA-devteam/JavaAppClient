@@ -56,7 +56,7 @@
             </Label>
             <HBox alignment="CENTER_RIGHT" HBox.hgrow="ALWAYS">
                <children>
-                  <ProgressBar nodeOrientation="LEFT_TO_RIGHT" prefWidth="150.0" progress="0.0" HBox.hgrow="NEVER">
+                  <ProgressBar fx:id="loadingBar" disable="true"  nodeOrientation="LEFT_TO_RIGHT" prefWidth="150.0" progress="0.0" HBox.hgrow="NEVER">
                      <HBox.margin>
                         <Insets bottom="5.0" right="10.0" top="5.0" />
                      </HBox.margin>
