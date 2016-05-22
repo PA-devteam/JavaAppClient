@@ -1,11 +1,13 @@
 package notifications;
 
+import java.util.Optional;
 import javafx.geometry.Bounds;
 import javafx.geometry.Point2D;
 import resources.ResourceLoader;
 import javafx.scene.Node;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
+import javafx.scene.control.ButtonType;
 import javafx.stage.Popup;
 import javafx.stage.PopupBuilder;
 import javafx.stage.Window;
@@ -49,6 +51,16 @@ public class NotificationsManager {
         alert.showAndWait();        
     }
     
+    public static boolean prompt(String title, String header, String content) {
+        Alert alert = new Alert(AlertType.CONFIRMATION);
+        alert.setTitle(title);
+        alert.setHeaderText(header);
+        alert.setContentText(content);        
+       
+        Optional<ButtonType> result = alert.showAndWait();
+        
+        return (result.get() == ButtonType.OK);
+    }
     
     /** ALERT METHOD SHORTHAND HELPERS **/
     public static void info(String header, String content) {
