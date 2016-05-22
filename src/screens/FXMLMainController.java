@@ -3,12 +3,15 @@ package screens;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
+import javafx.beans.property.BooleanProperty;
+import javafx.beans.property.SimpleBooleanProperty;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Menu;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.ProgressBar;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.StackPane;
 import security.Authenticator;
@@ -27,16 +30,16 @@ public class FXMLMainController implements Initializable {
 
     @FXML
     private StackPane StackPaneMain;
-
-    @FXML
-    private GridPane userMenu;
     
     @FXML
-    private Menu headerItems;
+    private Menu headerMenu;
     
     @FXML
     private ProgressBar loadingBar;
 
+    @FXML
+    private ImageView avatarHolder;    
+    
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         // Store the reference of the screens container
@@ -56,9 +59,7 @@ public class FXMLMainController implements Initializable {
         btnLogout.visibleProperty().bind(Authenticator.isAuth);
         
         // Visible IF socket is unlocked
-        headerItems.visibleProperty().bind(PaSocket.isUnLocked);
-        
-//        userMenu.visibleProperty().bind(Authenticator.isAuth);
+        headerMenu.visibleProperty().bind(PaSocket.isUnLocked);
     }
 
     @FXML
