@@ -58,7 +58,25 @@ public class PaSocketClient extends Thread implements Runnable {
             
             // Reset number of connection retries
             retries = 0;
-        } catch (IOException ex) {
+            
+            while(true) {
+                // Waiting message from client
+                PaSocketMessage message = (PaSocketMessage) readObject();
+
+                // Get action from client message
+                PaSocketAction action = message.getAction();
+                
+                switch(action) {
+                    case LOGIN:
+                    case REGISTER:
+                        security.Authenticator.authenticate(message);
+                        break;
+                    default:
+                        System.err.println("ACTION '" + action + "' NOT SUPPORTED");
+                        break;
+                }
+            }
+        } catch (IOException|ClassNotFoundException ex) {
             if(ex instanceof SocketException) {
                 // Increment connection retries
                 retries++;
@@ -128,8 +146,6 @@ public class PaSocketClient extends Thread implements Runnable {
 
         msg = objectReader.readObject();
         response = (PaSocketMessage) msg;
-
-        System.out.println("\t * " + nameTest + " Received message " + response.getAction());
 
         return response;
     }

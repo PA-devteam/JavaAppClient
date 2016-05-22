@@ -17,6 +17,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.GridPane;
+import sockets.PaSocketClient;
 import sockets.PaSocketMessageRegister;
 
 public class FXMLRegisterController extends ScreensController {
@@ -134,7 +135,7 @@ public class FXMLRegisterController extends ScreensController {
                 }
             }
 
-            security.Authenticator.authenticate(o);
+            PaSocketClient.sendObject(o);
         }
     }
 
