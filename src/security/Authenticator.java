@@ -1,6 +1,7 @@
 package security;
 
 import app.User;
+import config.ConfigManager;
 import java.io.IOException;
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.SimpleBooleanProperty;
@@ -9,13 +10,12 @@ import screens.ScreensManager;
 import notifications.NotificationsManager;
 
 public class Authenticator {
-
+    // Current logged status of user
     public static BooleanProperty isAuth = new SimpleBooleanProperty(false);
+    // Reference of current logged user
     public static User user;
 
-    public static boolean login(PaSocketMessageLogin msg) {
-        boolean isLogged = false;
-        
+    public static void authenticate(PaSocketMessage msg) {
         try {
             PaSocketClient.sendObject(msg);
 
@@ -24,7 +24,7 @@ public class Authenticator {
             PaSocketResponse res = (PaSocketResponse) read;
 
             if(res.getErrors().size() > 0) {
-                ScreensManager.toggleLoadingBar();
+                isAuth.set(false);
                 
                 String notifications = "";
                 
@@ -35,10 +35,15 @@ public class Authenticator {
                     System.err.println(err);
                 }
 
-                NotificationsManager.error("Erreur lors de la connexion", notifications);
+                NotificationsManager.error("Erreur lors de l'enregistrement", notifications);
             } else {
-                isLogged = true;
+                isAuth.set(true);
                 user = (User) res.getContent();
+                
+                // Save the user as last logged user
+                ConfigManager.setProperty("login_last_logged", user.getUsername());
+                // Save the properties file
+                ConfigManager.save("config.properties");                
             }
 
             if(ScreensManager.controller != null) {
@@ -48,14 +53,6 @@ public class Authenticator {
         } catch (IOException|ClassNotFoundException ex) {
             System.err.println(ex);
         }
-        
-        return isLogged;
-    }
-
-    public static boolean register() {
-        isAuth.set(true);
-
-        return isAuth.get();
     }
 
     public static void logout() {

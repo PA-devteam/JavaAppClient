@@ -13,8 +13,11 @@ import javafx.scene.control.TextField;
 
 public class ScreensController implements Initializable, ScreensSubmitable{
     
+    @Override
     public void toggleFreeze(boolean frozen) {
-       // Using class reflection to store values from the current controller to new object
+        ScreensManager.toggleLoadingBar();
+        
+        // Using class reflection to store values from the current controller to new object
         Field[] fields = this.getClass().getDeclaredFields();
 
         // Check if there are some fields to iterate
@@ -25,7 +28,7 @@ public class ScreensController implements Initializable, ScreensSubmitable{
                 if (field.getType().isAssignableFrom(TextField.class) || field.getType().isAssignableFrom(PasswordField.class)) {
                     try {
                         // Capitalize first letter of current iterated field
-                        String cap = field.getName().substring(0, 1).toUpperCase() + field.getName().substring(1);
+                        String cap = capitalizeFieldName(field);
 
                         // Retrieve getter method from origin object
                         Method getter = this.getClass().getMethod("get" + cap);
@@ -47,6 +50,11 @@ public class ScreensController implements Initializable, ScreensSubmitable{
         }
     }
 
+    final protected String capitalizeFieldName(Field field) {
+        String fieldName = field.getName();
+        return fieldName.substring(0, 1).toUpperCase() + fieldName.substring(1);
+    }
+    
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         ScreensManager.controller = this;
@@ -54,6 +62,6 @@ public class ScreensController implements Initializable, ScreensSubmitable{
 
     @Override
     public void submit() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        
     }
 }

@@ -32,63 +32,12 @@ public class FXMLLoginController extends ScreensController {
 
     @FXML
     private PasswordField userPassword;
-    
+
     @FXML
     private Button btnOk;
-    
-    @FXML
-    private Button btnCancel;    
-
-    /**
-     * Initializes the controller class.
-     */
-    
-    public void initialize(URL url, ResourceBundle rb) {
-        super.initialize(url, rb);
-        
-        // Get the last connected user
-        userName.setText(ConfigManager.getStringProperty("login_last_logged"));
-
-        paneLogin.setOnKeyPressed(new EventHandler<KeyEvent>()
-        {
-            @Override
-            public void handle(KeyEvent ke)
-            {
-                if (ke.getCode().equals(KeyCode.ENTER))
-                {
-                    System.out.println("ENTER");
-                    submit();
-                }
-            }
-        });
-    }
 
     @FXML
-    private void handleClick(ActionEvent event) throws IOException {
-        Button mItem = (Button) event.getSource();
-
-        String side = mItem.getText();
-
-        switch(side.toLowerCase()) {
-            case "ok":
-                System.out.println("case btn ok");
-                submit();
-                break;
-            case "register":
-                System.out.println("case btn register");
-                register();
-                break;
-            default:
-                System.out.println("default");
-                System.out.println(side);
-                break;
-        }
-    }
-
-    private void register() {
-        System.out.println("register");
-        ScreensManager.setContent(Screens.REGISTER);
-    }
+    private Button btnCancel;
 
     /**
      * @return the userName
@@ -117,26 +66,67 @@ public class FXMLLoginController extends ScreensController {
     public void setUserPassword(PasswordField userPassword) {
         this.userPassword = userPassword;
     }
-    
+
+    /**
+     * Initializes the controller class.
+     */
+    public void initialize(URL url, ResourceBundle rb) {
+        super.initialize(url, rb);
+
+        // Get the last connected user
+        userName.setText(ConfigManager.getStringProperty("login_last_logged"));
+
+        paneLogin.setOnKeyPressed(new EventHandler<KeyEvent>() {
+            @Override
+            public void handle(KeyEvent ke) {
+                if (ke.getCode().equals(KeyCode.ENTER)) {
+                    submit();
+                }
+            }
+        });
+    }
+
+    @FXML
+    private void handleClick(ActionEvent event) throws IOException {
+        Button mItem = (Button) event.getSource();
+
+        String side = mItem.getText();
+
+        switch (side.toLowerCase()) {
+            case "ok":
+                submit();
+                break;
+            case "register":
+                register();
+                break;
+            default:
+                System.out.println(side);
+                break;
+        }
+    }
+
+    private void register() {
+        ScreensManager.setContent(Screens.REGISTER);
+    }
+
+    @Override
     public void toggleFreeze(boolean frozen) {
         super.toggleFreeze(frozen);
         btnOk.setDisable(frozen);
-        btnCancel.setDisable(frozen);       
+        btnCancel.setDisable(frozen);
     }
-    
+
     @Override
     public void submit() {
         toggleFreeze(true);
-        
-        ScreensManager.toggleLoadingBar();
-        
+
         PaSocketMessageLogin o = new PaSocketMessageLogin();
 
         // Using class reflection to store values from the current controller to new object
         Field[] fields = this.getClass().getDeclaredFields();
 
         // Check if there are some fields to iterate
-        if (fields.length > 0) {           
+        if (fields.length > 0) {
             // Iterate overs fields
             for (Field field : fields) {
                 // Check field type
@@ -154,13 +144,10 @@ public class FXMLLoginController extends ScreensController {
                         // Retrieve Textfield from current controller
                         TextField t = (TextField) getter.invoke(this);
 
-                        // Disable current iterated field
-                        t.setDisable(true);
-
                         // Call setter method on target object with value obtained by getter method
                         setter.invoke(o, t.getText());
-                    } catch (IllegalArgumentException|IllegalAccessException|InvocationTargetException|NoSuchMethodException ex) {
-                        if(ex instanceof NoSuchMethodException) {
+                    } catch (IllegalArgumentException | IllegalAccessException | InvocationTargetException | NoSuchMethodException ex) {
+                        if (ex instanceof NoSuchMethodException) {
                             System.err.println("Method does not exist");
                         } else {
                             Logger.getLogger(FXMLLoginController.class.getName()).log(Level.SEVERE, null, ex);
@@ -168,8 +155,8 @@ public class FXMLLoginController extends ScreensController {
                     }
                 }
             }
-            
-            security.Authenticator.login(o);
+
+            security.Authenticator.authenticate(o);
         }
     }
 }

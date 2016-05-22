@@ -11,16 +11,12 @@ import java.util.logging.Logger;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
-import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.GridPane;
-import security.Authenticator;
-import sockets.PaSocketAction;
-import sockets.PaSocketClient;
 import sockets.PaSocketMessageRegister;
 
 public class FXMLRegisterController extends ScreensController {
@@ -45,23 +41,24 @@ public class FXMLRegisterController extends ScreensController {
 
     @FXML
     private PasswordField userConfirmPassword;
-    
+
     @FXML
     private Button btnOk;
-    
+
     @FXML
-    private Button btnCancel;      
+    private Button btnCancel;
 
     /**
      * Initializes the controller class.
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
+        super.initialize(url, rb);
+
         paneRegister.setOnKeyPressed(new EventHandler<KeyEvent>() {
             @Override
             public void handle(KeyEvent ke) {
                 if (ke.getCode().equals(KeyCode.ENTER)) {
-                    System.out.println("ENTER");
                     submit();
                 }
             }
@@ -89,19 +86,18 @@ public class FXMLRegisterController extends ScreensController {
                 break;
         }
     }
-    
+
+    @Override
     public void toggleFreeze(boolean frozen) {
         super.toggleFreeze(frozen);
         btnOk.setDisable(frozen);
-        btnCancel.setDisable(frozen);       
-    }    
+        btnCancel.setDisable(frozen);
+    }
 
     @Override
     public void submit() {
         toggleFreeze(true);
-        
-        ScreensManager.toggleLoadingBar();
-        
+
         PaSocketMessageRegister o = new PaSocketMessageRegister();
 
         // Using class reflection to store values from the current controller to new object
@@ -126,13 +122,10 @@ public class FXMLRegisterController extends ScreensController {
                         // Retrieve Textfield from current controller
                         TextField t = (TextField) getter.invoke(this);
 
-                        // Disable current iterated field
-                        t.setDisable(true);
-
                         // Call setter method on target object with value obtained by getter method
                         setter.invoke(o, t.getText());
-                    } catch (IllegalArgumentException|IllegalAccessException|InvocationTargetException|NoSuchMethodException ex) {
-                        if(ex instanceof NoSuchMethodException) {
+                    } catch (IllegalArgumentException | IllegalAccessException | InvocationTargetException | NoSuchMethodException ex) {
+                        if (ex instanceof NoSuchMethodException) {
                             System.err.println("Method does not exist");
                         } else {
                             Logger.getLogger(FXMLLoginController.class.getName()).log(Level.SEVERE, null, ex);
@@ -141,7 +134,7 @@ public class FXMLRegisterController extends ScreensController {
                 }
             }
 
-            PaSocketClient.sendObject(o);
+            security.Authenticator.authenticate(o);
         }
     }
 
