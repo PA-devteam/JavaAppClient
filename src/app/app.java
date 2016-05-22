@@ -14,8 +14,8 @@ public class app extends Application {
 
     @Override
     public void start(Stage primaryStage) throws Exception {
-        ConfigManager.load("config.properties");
-
+        ConfigManager.load("config.properties");       
+        
         /*****************************************************************/
         /**************************** EXAMPLE ****************************/
         // Set new property
@@ -54,7 +54,7 @@ public class app extends Application {
                 /***************************************************************************/
 
                 // Load font 'fontawesome' (only containing icons)
-                ResourceLoader.loadFont("fontawesome-webfont.ttf", 12);
+                ResourceLoader.loadFont("fontawesome-webfont.ttf", 6);
                 /************ Font Awesome icons website ************/
                 /* https://fortawesome.github.io/Font-Awesome/icons */
                 /****************************************************/
@@ -75,9 +75,11 @@ public class app extends Application {
                 PaSocket.initialise(ip, port);
             } else {
                 System.err.println("Cannot start application, no root found");
+                notifications.NotificationsManager.error("Impossible de démarrer l'application", "La vue parente n'a pas été trouvée");
             }
         } else {
             System.err.println("Cannot start application, no config file found");
+            notifications.NotificationsManager.error("Impossible de démarrer l'application", "Aucun fichier de configuration trouvé");
         }
     }
 

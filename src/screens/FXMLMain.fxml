@@ -25,6 +25,7 @@
                 </Menu>
               </menus>
             </MenuBar>
+            <fx:include source="FXMLHeaderInfos.fxml" GridPane.columnIndex="1" GridPane.halignment="RIGHT" />
          </children>
          <columnConstraints>
             <ColumnConstraints halignment="LEFT" />
