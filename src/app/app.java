@@ -8,14 +8,43 @@ import javafx.stage.Stage;
 import resources.ResourceLoader;
 import screens.Screens;
 import config.ConfigManager;
+import javafx.application.Platform;
+import javafx.event.EventHandler;
+import javafx.stage.WindowEvent;
 import sockets.PaSocket;
+import notifications.NotificationsManager;
 
 public class app extends Application {
 
     @Override
     public void start(Stage primaryStage) throws Exception {
+        
+        // Set action to handle exit behavior
+        primaryStage.setOnCloseRequest(new EventHandler<WindowEvent>() {
+            @Override
+            public void handle(WindowEvent event) {
+                // Prompt the user to choose an action to perform
+                boolean exit = NotificationsManager.prompt(
+                        "Quitter l'application",
+                        "Souhaitez-vous vraiment quitter l'application ?",
+                        "Attention toutes les données non sauvegardées seront perdues"
+                );
+                
+                // IF user has clicked OK button
+                if(exit) {
+                    // Exit application
+                    Platform.exit();
+                } else {
+                    // Otherwise, just consume the event and do nothing
+                    event.consume();
+                }
+            }
+        });
+        
+        // Load application configuration file
         ConfigManager.load("config.properties");       
 
+        // If configuration loading has succeed
         if (!ConfigManager.isEmpty()) {
             // Declare new root parent for application scene
             Parent root;
