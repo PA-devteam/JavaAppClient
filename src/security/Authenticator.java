@@ -1,10 +1,12 @@
 package security;
 
 import app.User;
+import app.UserProperty;
 import config.ConfigManager;
 import javafx.application.Platform;
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.SimpleBooleanProperty;
+import javafx.beans.property.SimpleStringProperty;
 import sockets.*;
 import screens.ScreensManager;
 import notifications.NotificationsManager;
@@ -15,7 +17,8 @@ public class Authenticator {
     // Current logged status of user
     public static BooleanProperty isAuth = new SimpleBooleanProperty(false);
     // Reference of current logged user
-    public static User user;
+    public static UserProperty user = new UserProperty();
+    public static SimpleStringProperty userName = new SimpleStringProperty("");
 
     public static void authenticate(PaSocketMessage msg) {
 
@@ -45,12 +48,23 @@ public class Authenticator {
                     NotificationsManager.error("Erreur lors de l'enregistrement", notifications);
                 } else {
                     isAuth.set(true);
-                    user = (User) res.getContent();
+
+                    User usr = (User) res.getContent();
+                    
+                    user.setUserFirstName(usr.getFirstname());
+                    user.setUserLastName(usr.getLastname());
+                    user.setUserName(usr.getUsername());
+                    
+                    // @TODO refactor setUserRoles method to fetch roles from received User
+                    user.setUserRoles("User");
+                    
+                    // @TODO create a getter/setter for avatar in User class
+                    user.setUserAvatarImage("");
 
                     // Save the user as last logged user
-                    ConfigManager.setProperty("login_last_logged", user.getUsername());
+                    ConfigManager.setProperty("login_last_logged", usr.getUsername());
                     // Save the properties file
-                    ConfigManager.save("config.properties");
+                    ConfigManager.save("config.properties");                    
                     
                     ScreensManager.setContent(Screens.WORKSPACE);
                 }

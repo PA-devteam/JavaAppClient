@@ -15,14 +15,6 @@ public class app extends Application {
     @Override
     public void start(Stage primaryStage) throws Exception {
         ConfigManager.load("config.properties");       
-        
-        /*****************************************************************/
-        /**************************** EXAMPLE ****************************/
-        // Set new property
-        ConfigManager.setProperty("login_last_logged", "user666");
-        // Save the file
-        ConfigManager.save("config.properties");
-        /*****************************************************************/
 
         if (!ConfigManager.isEmpty()) {
             // Declare new root parent for application scene

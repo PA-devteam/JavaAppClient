@@ -32,7 +32,7 @@
             <Insets left="6.0" />
          </GridPane.margin>
       </ImageView>
-      <Label alignment="BOTTOM_LEFT" text="Username" textAlignment="JUSTIFY" textFill="WHITE" GridPane.columnIndex="4" GridPane.columnSpan="3" GridPane.valignment="BOTTOM">
+      <Label alignment="BOTTOM_LEFT" text="Username" fx:id="userName" textAlignment="JUSTIFY" textFill="WHITE" GridPane.columnIndex="4" GridPane.columnSpan="3" GridPane.valignment="BOTTOM">
          <padding>
             <Insets left="8.0" />
          </padding>
@@ -48,7 +48,7 @@
             <Font size="10.0" />
          </font>
       </Label>
-      <Label text="User" textFill="#ff8800" GridPane.columnIndex="5" GridPane.halignment="LEFT" GridPane.rowIndex="1" GridPane.valignment="TOP">
+      <Label text="User" fx:id="userRoles" textFill="#ff8800" GridPane.columnIndex="5" GridPane.halignment="LEFT" GridPane.rowIndex="1" GridPane.valignment="TOP">
          <font>
             <Font size="10.0" />
          </font></Label>
