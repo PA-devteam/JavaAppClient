@@ -1,45 +1,11 @@
 package sockets;
 
-public class PaSocketMessageRegister extends PaSocketMessage {
+public class PaSocketMessageRegister extends PaSocketMessageLogin {
 
-    private String userFirstName;
-    private String userLastName;
-    private String userName;
-    private String userPassword;
-    private String userConfirmPassword;
-    private String userEmail;
-
-    public String getUserFirstName() {
-        return userFirstName;
-    }
-
-    public void setUserFirstName(String userFirstName) {
-        this.userFirstName = userFirstName;
-    }
-
-    public String getUserLastName() {
-        return userLastName;
-    }
-
-    public void setUserLastName(String userLastName) {
-        this.userLastName = userLastName;
-    }
-
-    public String getUserName() {
-        return userName;
-    }
-
-    public void setUserName(String userName) {
-        this.userName = userName;
-    }
-
-    public String getUserPassword() {
-        return userPassword;
-    }
-
-    public void setUserPassword(String userPassword) {
-        this.userPassword = userPassword;
-    }
+    protected String userFirstName;
+    protected String userLastName;
+    protected String userConfirmPassword;
+    protected String userEmail;
 
     public String getUserConfirmPassword() {
         return userConfirmPassword;
@@ -57,14 +23,30 @@ public class PaSocketMessageRegister extends PaSocketMessage {
         this.userEmail = userEmail;
     }
 
+    public String getUserFirstName() {
+        return userFirstName;
+    }
+
+    public void setUserFirstName(String userFirstName) {
+        this.userFirstName = userFirstName;
+    }
+
+    public String getUserLastName() {
+        return userLastName;
+    }
+
+    public void setUserLastName(String userLastName) {
+        this.userLastName = userLastName;
+    }
+
     public PaSocketMessageRegister() {
-        super(PaSocketAction.REGISTER);
+        super();
+        this.action = PaSocketAction.REGISTER;
     }
 
     public PaSocketMessageRegister(String userFirstName, String userLastName, String userName, String userPassword, String userConfirmPassword, String userEmail) {
-        super(PaSocketAction.REGISTER);
-        this.userFirstName = userFirstName;
-        this.userLastName = userLastName;
+        super(userName, userPassword);
+        this.action = PaSocketAction.REGISTER;
         this.userName = userName;
         this.userPassword = userPassword;
         this.userConfirmPassword = userConfirmPassword;

@@ -4,7 +4,7 @@ import java.io.Serializable;
 
 public class PaSocketMessage implements Serializable {
 
-    private PaSocketAction action;
+    protected PaSocketAction action;
 
     /**
      * @return the action
@@ -26,6 +26,5 @@ public class PaSocketMessage implements Serializable {
 
     public PaSocketMessage(PaSocketAction pAction) {
         this.action = pAction;
-
     }
 }
