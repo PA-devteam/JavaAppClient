@@ -1,7 +1,7 @@
 package security;
 
-import app.User;
-import app.UserProperty;
+import entities.User;
+import entities.UserProperty;
 import config.ConfigManager;
 import javafx.application.Platform;
 import javafx.beans.property.BooleanProperty;
