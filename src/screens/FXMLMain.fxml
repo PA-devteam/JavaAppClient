@@ -16,7 +16,7 @@
          <children>
             <MenuBar fx:id="headerNavBar" nodeOrientation="LEFT_TO_RIGHT" BorderPane.alignment="CENTER">
               <menus>
-                <Menu fx:id="headerItems" mnemonicParsing="false" text="">
+                <Menu fx:id="headerMenu" mnemonicParsing="false" text="">
                   <items>
                     <MenuItem fx:id="btnLogin" mnemonicParsing="false" onAction="#handleClick" styleClass="headerItem" text=" Connexion" />
                     <MenuItem fx:id="btnRegister" mnemonicParsing="false" onAction="#handleClick" styleClass="headerItem" text=" Inscription" />
