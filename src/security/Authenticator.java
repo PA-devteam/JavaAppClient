@@ -57,7 +57,7 @@ public class Authenticator {
                     GuiBinder.user.setUserName(usr.getUsername());
                     
                     // @TODO refactor setUserRoles method to fetch roles from received User
-                    GuiBinder.user.setUserRoles("User");
+                    GuiBinder.user.setUserRoles(usr.getUserRole());
                     
                     // @TODO create a getter/setter for avatar in User class
                     GuiBinder.user.setUserAvatarImage("");
