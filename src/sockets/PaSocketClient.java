@@ -8,6 +8,7 @@ import java.io.OutputStream;
 import java.net.ConnectException;
 import java.net.Socket;
 import java.net.SocketException;
+import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javafx.application.Platform;
@@ -34,7 +35,7 @@ public class PaSocketClient extends Thread implements Runnable {
             // Initialise socket connection
             sock = new Socket(ip, port);
         } catch (IOException ex) {
-            if(ex instanceof ConnectException) {
+            if (ex instanceof ConnectException) {
                 System.err.println("Socket connection failure detected");
             } else {
                 Logger.getLogger(PaSocketClient.class.getName()).log(Level.SEVERE, null, ex);
@@ -51,33 +52,46 @@ public class PaSocketClient extends Thread implements Runnable {
     @Override
     public void run() {
         try {
-            handleGuiSocketError(Screens.LOGIN, true);            
+            handleGuiSocketError(Screens.LOGIN, true);
 
             // Initialise stream handlers
             initStreamHandlers();
-            
+            boolean init = true;
+
             // Reset number of connection retries
             retries = 0;
-            
-            while(true) {
+
+            while (true) {
+                if (init) {
+                    //Recuperation list of roles
+                    PaSocketMessage initialiseListRoles = new PaSocketMessage(PaSocketAction.INIT);
+                    sendObject(initialiseListRoles);
+                    init = false;
+                }
+
                 // Waiting message from client
                 PaSocketMessage message = (PaSocketMessage) readObject();
 
                 // Get action from client message
                 PaSocketAction action = message.getAction();
-                
-                switch(action) {
+
+                switch (action) {
                     case LOGIN:
                     case REGISTER:
                         security.Authenticator.authenticate(message);
+                        break;
+                    case INIT:
+                        PaSocketResponse tmp = (PaSocketResponse) message;
+                        guibinding.GuiBinder.roles.clear();
+                        guibinding.GuiBinder.roles.addAll((ArrayList<String>) tmp.getContent());
                         break;
                     default:
                         System.err.println("ACTION '" + action + "' NOT SUPPORTED");
                         break;
                 }
             }
-        } catch (IOException|ClassNotFoundException ex) {
-            if(ex instanceof SocketException) {
+        } catch (IOException | ClassNotFoundException ex) {
+            if (ex instanceof SocketException) {
                 // Increment connection retries
                 retries++;
 
@@ -93,10 +107,10 @@ public class PaSocketClient extends Thread implements Runnable {
         // Set SOCKET_RETRY screen
         handleGuiSocketError(Screens.SOCKET_RETRY, false);
 
-        if(retries>0 && retries <= 3) {
+        if (retries > 0 && retries <= 3) {
             System.err.println("Trying to reconnect, attempt " + retries + "/3");
             try {
-                System.err.println("Waiting " + 1000*retries + "ms");
+                System.err.println("Waiting " + 1000 * retries + "ms");
                 // Wait for some time in ms
                 sleep(1000 * retries);
                 // Re run initialisation
@@ -109,26 +123,30 @@ public class PaSocketClient extends Thread implements Runnable {
             retries = 0;
         }
     }
-    
+
     private void handleGuiSocketError(Screens screen, boolean locked) {
         System.out.println(screen);
-        /*****************************************************************/
+        /**
+         * **************************************************************
+         */
         /* Note : Need to call runLater because Thread synchronisation ! */
-        /*****************************************************************/
-        Platform.runLater(new Runnable(){
+        /**
+         * **************************************************************
+         */
+        Platform.runLater(new Runnable() {
             @Override
             public void run() {
                 PaSocket.isUnLocked.setValue(locked);
                 ScreensManager.setContent(screen);
             }
-        });        
+        });
     }
 
     private static void initStreamHandlers() throws IOException {
-        if(sock != null) {
+        if (sock != null) {
             // Get output stream
             OutputStream output = sock.getOutputStream();
-            
+
             // Get input stream
             InputStream input = sock.getInputStream();
 

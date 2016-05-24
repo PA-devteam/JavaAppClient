@@ -4,9 +4,11 @@ public enum PaSocketAction {
     // Connection (connexion)
     LOGIN,
     // Register
-    REGISTER ,
+    REGISTER,
     // Disconnection (déconnexion)
     LOGOUT,
     // Miscellaneous (divers)
-    MISC 
+    MISC,
+    // Init 
+    INIT 
 }
