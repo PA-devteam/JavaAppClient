@@ -18,7 +18,6 @@ public class Authenticator {
     public static BooleanProperty isAuth = new SimpleBooleanProperty(false);
     // Reference of current logged user
     public static UserProperty user = new UserProperty();
-    public static SimpleStringProperty userName = new SimpleStringProperty("");
 
     public static void authenticate(PaSocketMessage msg) {
 
