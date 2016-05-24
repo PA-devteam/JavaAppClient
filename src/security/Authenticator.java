@@ -11,6 +11,7 @@ import sockets.*;
 import screens.ScreensManager;
 import notifications.NotificationsManager;
 import screens.Screens;
+import guibinding.GuiBinder;
 
 public class Authenticator {
 
@@ -51,15 +52,15 @@ public class Authenticator {
 
                     User usr = (User) res.getContent();
                     
-                    guibinding.GuiBinder.user.setUserFirstName(usr.getFirstname());
-                    guibinding.GuiBinder.user.setUserLastName(usr.getLastname());
-                    guibinding.GuiBinder.user.setUserName(usr.getUsername());
+                    GuiBinder.user.setUserFirstName(usr.getFirstname());
+                    GuiBinder.user.setUserLastName(usr.getLastname());
+                    GuiBinder.user.setUserName(usr.getUsername());
                     
                     // @TODO refactor setUserRoles method to fetch roles from received User
-                    guibinding.GuiBinder.user.setUserRoles("User");
+                    GuiBinder.user.setUserRoles("User");
                     
                     // @TODO create a getter/setter for avatar in User class
-                    guibinding.GuiBinder.user.setUserAvatarImage("");
+                    GuiBinder.user.setUserAvatarImage("");
 
                     
                     // @TODO fix this!!!
@@ -78,7 +79,8 @@ public class Authenticator {
 //
 //                        }
 //                    });
-                                ScreensManager.setContent(Screens.WORKSPACE);
+
+                    ScreensManager.setContent(Screens.WORKSPACE);
                 }
 
                 if (ScreensManager.controller != null) {

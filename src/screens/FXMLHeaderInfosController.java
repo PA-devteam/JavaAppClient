@@ -8,6 +8,7 @@ import javafx.scene.control.Label;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.GridPane;
 import security.Authenticator;
+import guibinding.GuiBinder;
 
 public class FXMLHeaderInfosController implements Initializable {
 
@@ -32,12 +33,12 @@ public class FXMLHeaderInfosController implements Initializable {
         userInfosMenu.visibleProperty().bind(Authenticator.isAuth);
         
         // Binding user name value
-        userName.textProperty().bind(guibinding.GuiBinder.user.getUserName());
+        userName.textProperty().bind(GuiBinder.user.getUserName());
         
         // Binding user roles value
-        userRoles.textProperty().bind(guibinding.GuiBinder.user.getUserRoles());
+        userRoles.textProperty().bind(GuiBinder.user.getUserRoles());
         
         // Binding user avatar
-        avatarHolder.imageProperty().bind(guibinding.GuiBinder.user.getUserAvatarImage());
+        avatarHolder.imageProperty().bind(GuiBinder.user.getUserAvatarImage());
     }
 }
