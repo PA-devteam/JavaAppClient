@@ -32,12 +32,12 @@ public class FXMLHeaderInfosController implements Initializable {
         userInfosMenu.visibleProperty().bind(Authenticator.isAuth);
         
         // Binding user name value
-        userName.textProperty().bind(Authenticator.user.getUserName());
+        userName.textProperty().bind(guibinding.GuiBinder.user.getUserName());
         
         // Binding user roles value
-        userRoles.textProperty().bind(Authenticator.user.getUserRoles());
+        userRoles.textProperty().bind(guibinding.GuiBinder.user.getUserRoles());
         
         // Binding user avatar
-        avatarHolder.imageProperty().bind(Authenticator.user.getUserAvatarImage());
+        avatarHolder.imageProperty().bind(guibinding.GuiBinder.user.getUserAvatarImage());
     }
 }

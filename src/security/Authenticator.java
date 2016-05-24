@@ -17,7 +17,7 @@ public class Authenticator {
     // Current logged status of user
     public static BooleanProperty isAuth = new SimpleBooleanProperty(false);
     // Reference of current logged user
-    public static UserProperty user = new UserProperty();
+//    public static UserProperty user = new UserProperty();
     public static SimpleStringProperty userName = new SimpleStringProperty("");
 
     public static void authenticate(PaSocketMessage msg) {
@@ -51,22 +51,34 @@ public class Authenticator {
 
                     User usr = (User) res.getContent();
                     
-                    user.setUserFirstName(usr.getFirstname());
-                    user.setUserLastName(usr.getLastname());
-                    user.setUserName(usr.getUsername());
+                    guibinding.GuiBinder.user.setUserFirstName(usr.getFirstname());
+                    guibinding.GuiBinder.user.setUserLastName(usr.getLastname());
+                    guibinding.GuiBinder.user.setUserName(usr.getUsername());
                     
                     // @TODO refactor setUserRoles method to fetch roles from received User
-                    user.setUserRoles("User");
+                    guibinding.GuiBinder.user.setUserRoles("User");
                     
                     // @TODO create a getter/setter for avatar in User class
-                    user.setUserAvatarImage("");
+                    guibinding.GuiBinder.user.setUserAvatarImage("");
 
-                    // Save the user as last logged user
-                    ConfigManager.setProperty("login_last_logged", usr.getUsername());
-                    // Save the properties file
-                    ConfigManager.save("config.properties");                    
                     
-                    ScreensManager.setContent(Screens.WORKSPACE);
+                    // @TODO fix this!!!
+//                    /*****************************************************************/
+//                    /* Note : Need to call runLater because Thread synchronisation ! */
+//                    /*****************************************************************/        
+//                    Platform.runLater(new Runnable() {
+//                        @Override
+//                        public void run() {
+//
+//                                // Save the user as last logged user
+//                                ConfigManager.setProperty("login_last_logged", usr.getUsername());
+//                                // Save the properties file
+//                                ConfigManager.save("config.properties");                    
+//
+//
+//                        }
+//                    });
+                                ScreensManager.setContent(Screens.WORKSPACE);
                 }
 
                 if (ScreensManager.controller != null) {
