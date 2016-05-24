@@ -18,15 +18,15 @@
 #header > .menu-bar {
     -fx-background-color: transparent;
 }
-#headerItems > .label {
+#headerMenu > .label {
     -fx-text-fill: -fx-color-default;
     -fx-font-size: 24px;
     -fx-font-weight: bold;
 }
-#headerItems:hover {
+#headerMenu:hover {
     -fx-background-color: #718795;
 }
-#headerItems:showing {
+#headerMenu:showing {
     -fx-background-color: -fx-color-secondary;
 }
 
@@ -50,7 +50,7 @@
 .padding-xs {
     -fx-padding: 4px 8px;
 }
-.padding-sm , #headerItems > .label {
+.padding-sm , #headerMenu > .label {
     -fx-padding: 8px 16px;
 }
 .padding-md, #mainContainer, #container {
@@ -62,13 +62,13 @@
 
 
 /** ICONS **/
-.fontawesome, #headerItems, .btn {
+.fontawesome, #headerMenu, .btn {
     -fx-font-family: FontAwesome;
 }
 
 
 /** CURSORS **/
-.btn, #headerItems {
+.btn, #headerMenu {
     -fx-cursor: hand;
 }
 
