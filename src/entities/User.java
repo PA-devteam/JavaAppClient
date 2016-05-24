@@ -9,7 +9,7 @@ import java.io.Serializable;
 import java.util.*;
 
 /** @pdOid 1a1bb685-ad54-42d1-af3b-e83a2ebc3a4a */
-public class User implements Serializable{
+public class User implements Serializable {
    /** @pdOid 10f82ee1-e502-4aa1-9670-42b23dc1dac9 */
    private int id;
    /** @pdOid 22277a53-69c3-41e5-9821-8cb8e8230910 */
@@ -30,7 +30,17 @@ public class User implements Serializable{
    /** @pdRoleInfo migr=no name=Password assc=userPassword mult=1..1 */
    public Password userPassword;
    /** @pdRoleInfo migr=no name=Role assc=userRole mult=0..* */
-   public Role[] userRole;
+   public ArrayList<Role> userRole;
+
+    public ArrayList<Role> getUserRole() {
+        return userRole;
+    }
+
+    public void setUserRole(ArrayList<Role> userRole) {
+        this.userRole = userRole;
+    }
+
+   
    /** @pdRoleInfo migr=no name=Equation assc=userEquation mult=0..* */
    public Equation[] userEquation;
 
