@@ -1,5 +1,6 @@
 package screens;
 
+import guibinding.GuiBinder;
 import java.io.IOException;
 import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
@@ -8,10 +9,13 @@ import java.net.URL;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
+import javafx.scene.control.ChoiceBox;
+import javafx.scene.control.ComboBox;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.input.KeyCode;
@@ -48,7 +52,11 @@ public class FXMLRegisterController extends ScreensController {
 
     @FXML
     private Button btnCancel;
+    
+    @FXML
+    private ComboBox listRole;
 
+   
     /**
      * Initializes the controller class.
      */
@@ -64,6 +72,8 @@ public class FXMLRegisterController extends ScreensController {
                 }
             }
         });
+
+        listRole.setItems(FXCollections.observableArrayList(GuiBinder.roles));
     }
 
     @FXML

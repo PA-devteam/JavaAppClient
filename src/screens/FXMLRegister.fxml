@@ -26,6 +26,8 @@
     <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
       <RowConstraints minHeight="10.0" prefHeight="30.0" valignment="BOTTOM" vgrow="SOMETIMES" />
       <RowConstraints minHeight="10.0" prefHeight="30.0" valignment="BOTTOM" vgrow="SOMETIMES" />
+      <RowConstraints minHeight="10.0" prefHeight="30.0" valignment="BOTTOM" vgrow="SOMETIMES" />
+      <RowConstraints minHeight="10.0" prefHeight="30.0" valignment="BOTTOM" vgrow="SOMETIMES" />
     <RowConstraints minHeight="10.0" prefHeight="30.0" valignment="BOTTOM" vgrow="SOMETIMES" />
       <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
       <RowConstraints minHeight="10.0" prefHeight="30.0" valignment="BOTTOM" vgrow="SOMETIMES" />
@@ -43,25 +45,25 @@
       </Label>
       <Separator GridPane.columnIndex="1" GridPane.columnSpan="3" />
       <Label alignment="CENTER" contentDisplay="CENTER" text="First name" textAlignment="RIGHT" GridPane.columnIndex="2" GridPane.rowIndex="2" />
-      <TextField promptText="firstname" fx:id="userFirstName" GridPane.columnIndex="2" GridPane.rowIndex="3" />
+      <TextField fx:id="userFirstName" promptText="firstname" GridPane.columnIndex="2" GridPane.rowIndex="3" />
       <Label alignment="CENTER" contentDisplay="CENTER" text="Last name" textAlignment="RIGHT" GridPane.columnIndex="2" GridPane.rowIndex="4" />
-      <TextField promptText="lastname" fx:id="userLastName" GridPane.columnIndex="2" GridPane.rowIndex="5" />
+      <TextField fx:id="userLastName" promptText="lastname" GridPane.columnIndex="2" GridPane.rowIndex="5" />
       <Label alignment="CENTER" contentDisplay="CENTER" text="Username" textAlignment="RIGHT" GridPane.columnIndex="2" GridPane.rowIndex="6" />
-      <TextField promptText="username" fx:id="userName" GridPane.columnIndex="2" GridPane.rowIndex="7" />
-      <Label alignment="CENTER" contentDisplay="CENTER" text="Email" textAlignment="RIGHT" GridPane.columnIndex="2" GridPane.rowIndex="8" />
-      <TextField promptText="email" fx:id="userEmail" GridPane.columnIndex="2" GridPane.rowIndex="9" />
-      <Label text="Password" GridPane.columnIndex="2" GridPane.rowIndex="10" />
-      <PasswordField promptText="password" fx:id="userPassword" GridPane.columnIndex="2" GridPane.rowIndex="11" />
-      <Label alignment="CENTER" contentDisplay="CENTER" text="Confirm password" textAlignment="RIGHT" GridPane.columnIndex="2" GridPane.rowIndex="12" />
-      <PasswordField promptText="confirmpassword" fx:id="userConfirmPassword" GridPane.columnIndex="2" GridPane.rowIndex="13" />
-      <HBox alignment="CENTER_RIGHT" nodeOrientation="LEFT_TO_RIGHT" spacing="6.0" GridPane.columnIndex="2" GridPane.halignment="RIGHT" GridPane.hgrow="ALWAYS" GridPane.rowIndex="14">
+      <TextField fx:id="userName" promptText="username" GridPane.columnIndex="2" GridPane.rowIndex="7" />
+      <Label alignment="CENTER" contentDisplay="CENTER" text="Email" textAlignment="RIGHT" GridPane.columnIndex="2" GridPane.rowIndex="10" />
+      <TextField fx:id="userEmail" promptText="email" GridPane.columnIndex="2" GridPane.rowIndex="11" />
+      <Label text="Password" GridPane.columnIndex="2" GridPane.rowIndex="12" />
+      <PasswordField fx:id="userPassword" promptText="password" GridPane.columnIndex="2" GridPane.rowIndex="13" />
+      <Label alignment="CENTER" contentDisplay="CENTER" text="Confirm password" textAlignment="RIGHT" GridPane.columnIndex="2" GridPane.rowIndex="14" />
+      <PasswordField fx:id="userConfirmPassword" promptText="confirmpassword" GridPane.columnIndex="2" GridPane.rowIndex="15" />
+      <HBox alignment="CENTER_RIGHT" nodeOrientation="LEFT_TO_RIGHT" spacing="6.0" GridPane.columnIndex="2" GridPane.halignment="RIGHT" GridPane.hgrow="ALWAYS" GridPane.rowIndex="16">
          <children>
-            <Button mnemonicParsing="false" fx:id="btnOk" onAction="#handleClick" styleClass="btn"  text="OK" GridPane.columnIndex="2" GridPane.rowIndex="12">
+            <Button fx:id="btnOk" mnemonicParsing="false" onAction="#handleClick" styleClass="btn" text="OK" GridPane.columnIndex="2" GridPane.rowIndex="12">
                <GridPane.margin>
                   <Insets bottom="12.0" top="12.0" />
                </GridPane.margin>
             </Button>
-            <Button mnemonicParsing="false" fx:id="btnCancel" onAction="#handleClick" styleClass="btn" text="Cancel" />
+            <Button fx:id="btnCancel" mnemonicParsing="false" onAction="#handleClick" styleClass="btn" text="Cancel" />
          </children>
          <opaqueInsets>
             <Insets />
@@ -70,5 +72,7 @@
             <Insets bottom="12.0" top="12.0" />
          </GridPane.margin>
       </HBox>
+      <Label alignment="CENTER" contentDisplay="CENTER" layoutX="42.0" layoutY="78.0" text="Role" textAlignment="RIGHT" GridPane.columnIndex="2" GridPane.rowIndex="8" />
+      <ComboBox fx:id="listRole" prefWidth="150.0" GridPane.columnIndex="2" GridPane.rowIndex="9" />
    </children>
 </GridPane>
