@@ -144,7 +144,7 @@ public class FXMLRegisterController extends ScreensController {
                     }
                 }
             }
-
+            o.setRoles((String)listRole.getValue());
             PaSocketClient.sendObject(o);
         }
     }

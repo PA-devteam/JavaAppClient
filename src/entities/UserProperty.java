@@ -2,6 +2,7 @@ package entities;
 
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
+import java.util.ArrayList;
 import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.property.SimpleStringProperty;
@@ -58,7 +59,16 @@ public class UserProperty {
     public void setUserRoles(SimpleStringProperty userRoles) {
         this.userRoles = userRoles;
     }
-    
+     public void setUserRoles(ArrayList<Role> userRoles) {
+     if(userRoles!=null)  {
+         String usrRole="";
+     
+         for(int i=0;i<userRoles.size();i++){
+            usrRole=" ,"+userRoles.get(i).getLabel();
+         }
+        this.userRoles.setValue(usrRole);
+     }
+    }
     public void setUserRoles(String userRoles) {
         this.userRoles.setValue(userRoles);
     }    
