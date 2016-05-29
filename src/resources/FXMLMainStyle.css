@@ -68,7 +68,7 @@
 
 
 /** CURSORS **/
-.btn, #headerMenu {
+.btn, .btn-no-deco, #headerMenu {
     -fx-cursor: hand;
 }
 
@@ -89,6 +89,18 @@
     -fx-padding: 6px 12px;    
     -fx-color-dark: -fx-color-light;
     -fx-text-fill: -fx-color-primary;       
+}
+.btn-no-deco {
+    -fx-background-radius: 0;
+    -fx-text-fill: #FFFFFF;
+    -fx-background-color: transparent;
+}
+.btn-no-deco:hover {
+    -fx-background-insets: -4px 0px -4px 0px;    
+    -fx-background-color: #718795;
+}
+.btn-no-deco:pressed {
+    -fx-background-color: -fx-color-secondary;
 }
 
 /** COLORS **/

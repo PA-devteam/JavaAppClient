@@ -11,9 +11,9 @@
 
 <GridPane fx:id="userInfosMenu" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="screens.FXMLHeaderInfosController">
   <columnConstraints>
-      <ColumnConstraints minWidth="10.0" />
-      <ColumnConstraints minWidth="10.0" />
-      <ColumnConstraints minWidth="10.0" />
+      <ColumnConstraints />
+      <ColumnConstraints />
+      <ColumnConstraints />
     <ColumnConstraints minWidth="10.0" />
     <ColumnConstraints minWidth="10.0" />
       <ColumnConstraints minWidth="10.0" />
@@ -32,7 +32,7 @@
             <Insets left="6.0" />
          </GridPane.margin>
       </ImageView>
-      <Label alignment="BOTTOM_LEFT" text="Username" fx:id="userName" textAlignment="JUSTIFY" textFill="WHITE" GridPane.columnIndex="4" GridPane.columnSpan="3" GridPane.valignment="BOTTOM">
+      <Label fx:id="userName" alignment="BOTTOM_LEFT" text="Username" textAlignment="JUSTIFY" textFill="WHITE" GridPane.columnIndex="4" GridPane.columnSpan="3" GridPane.valignment="BOTTOM">
          <padding>
             <Insets left="8.0" />
          </padding>
@@ -48,33 +48,24 @@
             <Font size="10.0" />
          </font>
       </Label>
-      <Label text="User" fx:id="userRoles" textFill="#ff8800" GridPane.columnIndex="5" GridPane.halignment="LEFT" GridPane.rowIndex="1" GridPane.valignment="TOP">
+      <Label fx:id="userRoles" text="User" textFill="#ff8800" GridPane.columnIndex="5" GridPane.halignment="LEFT" GridPane.rowIndex="1" GridPane.valignment="TOP">
          <font>
             <Font size="10.0" />
          </font></Label>
-      <Label text="" textFill="WHITE" GridPane.columnIndex="2" GridPane.rowSpan="2">
-         <font>
-            <Font fx:id="testNotification" name="FontAwesome Regular" size="24.0" />
-         </font>
-         <padding>
-            <Insets bottom="6.0" left="6.0" right="6.0" top="2.0" />
-         </padding>
-      </Label>
-      <Label text="" textFill="WHITE" GridPane.columnIndex="1" GridPane.rowSpan="2">
-         <font>
-            <Font name="FontAwesome Regular" size="30.0" />
-         </font>
-         <padding>
-            <Insets bottom="6.0" left="6.0" right="6.0" top="2.0" />
-         </padding>
-      </Label>
-      <Label text="" textFill="WHITE" GridPane.rowSpan="2">
-         <padding>
-            <Insets bottom="4.0" left="6.0" right="6.0" top="2.0" />
-         </padding>
+      <Button fx:id="btnNotifications" onAction="#handleClick" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" styleClass="btn-no-deco" stylesheets="@../resources/FXMLMainStyle.css" text="" textAlignment="CENTER" GridPane.columnIndex="2" GridPane.rowSpan="2">
          <font>
             <Font name="FontAwesome Regular" size="24.0" />
          </font>
-      </Label>
+      </Button>
+      <Button fx:id="btnChat" onAction="#handleClick" alignment="CENTER" contentDisplay="CENTER" layoutX="88.0" layoutY="10.0" mnemonicParsing="false" styleClass="btn-no-deco" stylesheets="@../resources/FXMLMainStyle.css" text="" textAlignment="CENTER" GridPane.columnIndex="1" GridPane.rowSpan="2">
+         <font>
+            <Font name="FontAwesome Regular" size="24.0" />
+         </font>
+      </Button>
+      <Button fx:id="btnMessages" onAction="#handleClick" alignment="CENTER" contentDisplay="CENTER" layoutX="102.0" layoutY="10.0" mnemonicParsing="false" styleClass="btn-no-deco" stylesheets="@../resources/FXMLMainStyle.css" text="" textAlignment="CENTER" GridPane.rowSpan="2">
+         <font>
+            <Font name="FontAwesome Regular" size="24.0" />
+         </font>
+      </Button>
    </children>
 </GridPane>
