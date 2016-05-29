@@ -92,5 +92,7 @@ public class Authenticator {
 
     public static void logout() {
         isAuth.set(false);
+        
+        PaSocketClient.sendObject(new PaSocketMessageLogout());
     }
 }
