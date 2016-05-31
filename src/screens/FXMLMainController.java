@@ -3,19 +3,18 @@ package screens;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
-import javafx.beans.property.BooleanProperty;
-import javafx.beans.property.SimpleBooleanProperty;
+import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Menu;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.ProgressBar;
-import javafx.scene.image.ImageView;
-import javafx.scene.layout.GridPane;
 import javafx.scene.layout.StackPane;
+import notifications.NotificationsManager;
 import security.Authenticator;
 import sockets.PaSocket;
+import sockets.PaSocketClient;
 
 public class FXMLMainController implements Initializable {
 
@@ -26,9 +25,6 @@ public class FXMLMainController implements Initializable {
     private MenuItem btnRegister;
 
     @FXML
-    private MenuItem btnLogout;
-
-    @FXML
     private StackPane StackPaneMain;
     
     @FXML
@@ -37,8 +33,6 @@ public class FXMLMainController implements Initializable {
     @FXML
     private ProgressBar loadingBar;
 
-    @FXML
-    private ImageView avatarHolder;    
     
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -55,9 +49,6 @@ public class FXMLMainController implements Initializable {
         btnLogin.visibleProperty().bind(Authenticator.isAuth.not());
         btnRegister.visibleProperty().bind(Authenticator.isAuth.not());
 
-        // Visible IF auth
-        btnLogout.visibleProperty().bind(Authenticator.isAuth);
-        
         // Visible IF socket is unlocked
         headerMenu.visibleProperty().bind(PaSocket.isUnLocked);
     }
@@ -66,27 +57,38 @@ public class FXMLMainController implements Initializable {
     private void handleClick(ActionEvent event) throws IOException {
         MenuItem mItem = (MenuItem) event.getSource();
 
-        String side = mItem.getText();
+        String bId = mItem.getId();
 
-        // Substring at index 2 beacause there is an icon and a whitespace
-        side = side.substring(2);
-
-        switch (side.toLowerCase()) {
-            case "inscription":
-                System.out.println("inscription");
+        switch (bId) {
+            case "btnRegister":
                 ScreensManager.setContent(Screens.REGISTER);
                 break;
-            case "connexion":
-                System.out.println("connexion");
+            case "btnLogin":
                 ScreensManager.setContent(Screens.LOGIN);
                 break;
-            case "déconnexion":
-                System.out.println("déconnexion");
-                Authenticator.logout();
-                ScreensManager.setContent(Screens.LOGIN);
+            case "btnParams":
+                ScreensManager.setContent(Screens.APP_PARAMETERS);
                 break;
+            case "btnExit":
+                // Prompt the user to choose an action to perform
+                boolean exit = NotificationsManager.prompt(
+                        "Quitter l'application",
+                        "Souhaitez-vous vraiment quitter l'application ?",
+                        "Attention toutes les données non sauvegardées seront perdues"
+                );
+                
+                // IF user has clicked OK button
+                if(exit) {
+                    // Exit application
+                    Platform.exit();
+                    
+                    PaSocketClient.currentThread().interrupt();
+                    
+                    System.exit(0);
+                }
+                break;                
             default:
-                System.out.println("default");
+                System.out.println("Button action not supported");
                 break;
         }
     }

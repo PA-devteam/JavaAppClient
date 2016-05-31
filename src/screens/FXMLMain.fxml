@@ -20,7 +20,9 @@
                   <items>
                     <MenuItem fx:id="btnLogin" mnemonicParsing="false" onAction="#handleClick" styleClass="headerItem" text=" Connexion" />
                     <MenuItem fx:id="btnRegister" mnemonicParsing="false" onAction="#handleClick" styleClass="headerItem" text=" Inscription" />
-                    <MenuItem fx:id="btnLogout" mnemonicParsing="false" onAction="#handleClick" styleClass="headerItem" text=" Déconnexion" />
+                    <SeparatorMenuItem mnemonicParsing="false" />
+                    <MenuItem fx:id="btnParams" visible="false" mnemonicParsing="false" onAction="#handleClick" styleClass="headerItem" text=" Paramètres" />
+                    <MenuItem fx:id="btnExit" mnemonicParsing="false" onAction="#handleClick" styleClass="headerItem" text=" Quitter" />
                   </items>
                 </Menu>
               </menus>

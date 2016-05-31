@@ -14,6 +14,7 @@ public class UserProperty {
     private SimpleStringProperty userLastName;
     private SimpleStringProperty userName;
     private SimpleStringProperty userRoles;
+    private SimpleStringProperty userEmail;
     private ObjectProperty<Image> userAvatarImage;
     
     public SimpleStringProperty getUserFirstName() {
@@ -63,8 +64,14 @@ public class UserProperty {
      if(userRoles!=null)  {
          String usrRole="";
      
-         for(int i=0;i<userRoles.size();i++){
-            usrRole=" ,"+userRoles.get(i).getLabel();
+         int rolesNb = userRoles.size();
+         for(int i=0;i<rolesNb;i++){
+//            usrRole=" ,"+userRoles.get(i).getLabel();
+            usrRole = userRoles.get(i).getLabel();
+            
+            if(i < rolesNb-1) {
+                usrRole += ", ";
+            }
          }
         this.userRoles.setValue(usrRole);
      }
@@ -95,9 +102,21 @@ public class UserProperty {
             }
         } else {
             System.out.println("NO AVATAR, LOADING DEFAULT");
-            this.userAvatarImage.setValue(new Image("/resources/icon_avatar_red.png"));
+            this.userAvatarImage.setValue(new Image("/resources/icon_avatar_grey.png"));
         }   
     }
+
+    public SimpleStringProperty getUserEmail() {
+        return userEmail;
+    }
+
+    public void setUserEmail(SimpleStringProperty userEmail) {
+        this.userEmail = userEmail;
+    }
+    
+    public void setUserEmail(String userEmail) {
+        this.userEmail.setValue(userEmail);
+    }    
     
     public UserProperty() {
         userFirstName   = new SimpleStringProperty();
@@ -105,15 +124,15 @@ public class UserProperty {
         userName        = new SimpleStringProperty();
         userRoles       = new SimpleStringProperty();
         userAvatarImage = new SimpleObjectProperty<>();
+        userEmail       = new SimpleStringProperty();
     }
     
     public UserProperty(User usr) {
         userFirstName   = new SimpleStringProperty(usr.getFirstname());
         userLastName    = new SimpleStringProperty(usr.getLastname());
         userName        = new SimpleStringProperty(usr.getUsername());
-        // @TODO implement getRoles method in User class
-//        userRoles     = new SimpleStringProperty(usr.getRoles());
         userRoles       = new SimpleStringProperty();        
         userAvatarImage = new SimpleObjectProperty<>();
+        userEmail       = new SimpleStringProperty(usr.getEmail());
     }
 }

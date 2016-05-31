@@ -12,6 +12,7 @@ import guibinding.GuiBinder;
 import java.io.IOException;
 import javafx.event.ActionEvent;
 import javafx.scene.control.Button;
+import javafx.scene.control.MenuItem;
 import notifications.NotificationsManager;
 
 public class FXMLHeaderInfosController implements Initializable {
@@ -30,6 +31,15 @@ public class FXMLHeaderInfosController implements Initializable {
     
     @FXML
     private Button btnMessages;
+    
+    @FXML
+    private Button btnNotifications;
+    
+    @FXML
+    private Button btnChat;
+    
+    @FXML
+    private MenuItem btnProfil;
 
     /**
      * Initializes the controller class.
@@ -51,9 +61,9 @@ public class FXMLHeaderInfosController implements Initializable {
     
     @FXML
     private void handleClick(ActionEvent event) throws IOException {
-        Button mItem = (Button) event.getSource();
-
-        String btnId = mItem.getId();
+        Button item = (Button) event.getSource();
+        
+        String btnId = item.getId();
 
         switch (btnId) {
             case "btnNotifications":
@@ -67,10 +77,32 @@ public class FXMLHeaderInfosController implements Initializable {
             case "btnMessages":
                 System.out.println("Showing messages");
                 NotificationsManager.info("Messagerie", "Fonctionnalité en cours de développement");
-                break;                
+                break;
             default:
                 System.out.println("Action '" + btnId + "' is not a valid");
                 break;
         }
-    }    
+    }
+    
+    @FXML
+    private void handleMenuItemClick(ActionEvent event) throws IOException {
+        MenuItem item = (MenuItem) event.getSource();
+        
+        String btnId = item.getId();
+
+        switch (btnId) {
+            case "btnProfil":
+                System.out.println("Showing profil");
+                ScreensManager.setContent(Screens.PROFIL);
+                break;
+            case "btnLogout":
+                System.out.println("Logout");
+                Authenticator.logout();
+//                ScreensManager.setContent(Screens.LOGIN);
+                break;                
+            default:
+                System.out.println("Action '" + btnId + "' is not a valid");
+                break;
+        }        
+    }
 }

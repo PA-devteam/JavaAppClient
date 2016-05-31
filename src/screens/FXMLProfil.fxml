@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.text.*?>
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.geometry.*?>
+
+<GridPane fx:id="paneRegister" styleClass="content" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="screens.FXMLProfilController">
+  <columnConstraints>
+    <ColumnConstraints />
+    <ColumnConstraints halignment="RIGHT" hgrow="SOMETIMES" minWidth="10.0" prefWidth="32.0" />
+      <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" />
+      <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="32.0" />
+  </columnConstraints>
+  <rowConstraints>
+      <RowConstraints minHeight="10.0" valignment="BOTTOM" vgrow="SOMETIMES" />
+      <RowConstraints minHeight="10.0" valignment="BOTTOM" vgrow="SOMETIMES" />
+      <RowConstraints minHeight="10.0" prefHeight="30.0" valignment="BOTTOM" vgrow="SOMETIMES" />
+      <RowConstraints minHeight="10.0" prefHeight="30.0" valignment="BOTTOM" vgrow="SOMETIMES" />
+      <RowConstraints minHeight="10.0" prefHeight="30.0" valignment="BOTTOM" vgrow="SOMETIMES" />
+      <RowConstraints minHeight="10.0" prefHeight="30.0" valignment="BOTTOM" vgrow="SOMETIMES" />
+    <RowConstraints minHeight="10.0" prefHeight="30.0" valignment="BOTTOM" vgrow="SOMETIMES" />
+    <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+      <RowConstraints minHeight="10.0" prefHeight="30.0" valignment="BOTTOM" vgrow="SOMETIMES" />
+      <RowConstraints minHeight="10.0" prefHeight="30.0" valignment="BOTTOM" vgrow="SOMETIMES" />
+      <RowConstraints minHeight="10.0" prefHeight="30.0" valignment="BOTTOM" vgrow="SOMETIMES" />
+      <RowConstraints minHeight="10.0" prefHeight="30.0" valignment="BOTTOM" vgrow="SOMETIMES" />
+    <RowConstraints minHeight="10.0" prefHeight="30.0" valignment="BOTTOM" vgrow="SOMETIMES" />
+      <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+      <RowConstraints minHeight="10.0" prefHeight="30.0" valignment="BOTTOM" vgrow="SOMETIMES" />
+      <RowConstraints minHeight="10.0" prefHeight="30.0" valignment="TOP" vgrow="SOMETIMES" />
+      <RowConstraints minHeight="10.0" valignment="CENTER" vgrow="SOMETIMES" />
+  </rowConstraints>
+   <children>
+      <Label text=" Profil" GridPane.columnIndex="1" GridPane.columnSpan="3" GridPane.halignment="LEFT" GridPane.valignment="TOP">
+         <font>
+            <Font name="FontAwesome Regular" size="16.0" />
+         </font>
+         <padding>
+            <Insets bottom="12.0" left="12.0" right="12.0" top="8.0" />
+         </padding>
+      </Label>
+      <Separator GridPane.columnIndex="1" GridPane.columnSpan="3" />
+      <Label alignment="CENTER" contentDisplay="CENTER" text="First name" textAlignment="RIGHT" GridPane.columnIndex="2" GridPane.rowIndex="2" />
+      <TextField fx:id="userFirstName" promptText="firstname" GridPane.columnIndex="2" GridPane.rowIndex="3" />
+      <Label alignment="CENTER" contentDisplay="CENTER" text="Last name" textAlignment="RIGHT" GridPane.columnIndex="2" GridPane.rowIndex="4" />
+      <TextField fx:id="userLastName" promptText="lastname" GridPane.columnIndex="2" GridPane.rowIndex="5" />
+      <Label alignment="CENTER" contentDisplay="CENTER" text="Username" textAlignment="RIGHT" GridPane.columnIndex="2" GridPane.rowIndex="6" />
+      <TextField fx:id="userName" promptText="username" GridPane.columnIndex="2" GridPane.rowIndex="7" />
+      <Label alignment="CENTER" contentDisplay="CENTER" text="Email" textAlignment="RIGHT" GridPane.columnIndex="2" GridPane.rowIndex="10" />
+      <TextField fx:id="userEmail" promptText="email" GridPane.columnIndex="2" GridPane.rowIndex="11" />
+      <Label text="Password" GridPane.columnIndex="2" GridPane.rowIndex="12" />
+      <PasswordField fx:id="userPassword" promptText="password" GridPane.columnIndex="2" GridPane.rowIndex="13" />
+      <Label alignment="CENTER" contentDisplay="CENTER" text="Confirm password" textAlignment="RIGHT" GridPane.columnIndex="2" GridPane.rowIndex="14" />
+      <PasswordField fx:id="userConfirmPassword" promptText="confirmpassword" GridPane.columnIndex="2" GridPane.rowIndex="15" />
+      <HBox alignment="CENTER_RIGHT" nodeOrientation="LEFT_TO_RIGHT" spacing="6.0" GridPane.columnIndex="2" GridPane.halignment="RIGHT" GridPane.hgrow="ALWAYS" GridPane.rowIndex="16">
+         <children>
+            <Button fx:id="btnOk" mnemonicParsing="false" onAction="#handleClick" styleClass="btn" text="Mettre à jour" GridPane.columnIndex="2" GridPane.rowIndex="12">
+               <GridPane.margin>
+                  <Insets bottom="12.0" top="12.0" />
+               </GridPane.margin>
+            </Button>
+            <Button fx:id="btnCancel" mnemonicParsing="false" onAction="#handleClick" styleClass="btn" text="Cancel" />
+         </children>
+         <opaqueInsets>
+            <Insets />
+         </opaqueInsets>
+         <GridPane.margin>
+            <Insets bottom="12.0" top="12.0" />
+         </GridPane.margin>
+      </HBox>
+      <Label alignment="CENTER" contentDisplay="CENTER" layoutX="42.0" layoutY="78.0" text="Role" textAlignment="RIGHT" GridPane.columnIndex="2" GridPane.rowIndex="8" />
+      <ComboBox fx:id="listRole" prefWidth="150.0" GridPane.columnIndex="2" GridPane.rowIndex="9" />
+   </children>
+</GridPane>

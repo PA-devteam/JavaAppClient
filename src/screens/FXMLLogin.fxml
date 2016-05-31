@@ -38,7 +38,7 @@
       <TextField fx:id="userName" promptText="username" GridPane.columnIndex="2" GridPane.rowIndex="3" />
       <Label text="Password" GridPane.columnIndex="2" GridPane.rowIndex="4" />
       <PasswordField fx:id="userPassword" promptText="password" GridPane.columnIndex="2" GridPane.rowIndex="5" />
-      <Hyperlink text="Forgot password" textAlignment="RIGHT" GridPane.columnIndex="2" GridPane.halignment="RIGHT" GridPane.rowIndex="6">
+      <Hyperlink text="Forgot password" textAlignment="RIGHT" disable="true" GridPane.columnIndex="2" GridPane.halignment="RIGHT" GridPane.rowIndex="6">
          <font>
             <Font size="10.0" />
          </font>

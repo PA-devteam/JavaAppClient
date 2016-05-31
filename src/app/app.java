@@ -13,6 +13,7 @@ import javafx.event.EventHandler;
 import javafx.stage.WindowEvent;
 import sockets.PaSocket;
 import notifications.NotificationsManager;
+import sockets.PaSocketClient;
 
 public class app extends Application {
 
@@ -34,6 +35,10 @@ public class app extends Application {
                 if(exit) {
                     // Exit application
                     Platform.exit();
+                    
+                    PaSocketClient.currentThread().interrupt();
+                    
+                    System.exit(0);
                 } else {
                     // Otherwise, just consume the event and do nothing
                     event.consume();

@@ -103,6 +103,15 @@
     -fx-background-color: -fx-color-secondary;
 }
 
+.context-menu {
+  
+}
+
+.menu-item {
+    -fx-padding: 8px 16px;
+    -fx-font-family: FontAwesome;
+}
+
 /** COLORS **/
 * {
     -fx-color-default: #ffffff;

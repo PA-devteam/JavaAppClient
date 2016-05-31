@@ -27,6 +27,8 @@ public class User implements Serializable {
    /** @pdOid 4b830cc4-a6b5-40f8-a6c5-9dcec616d97c */
    private Boolean isDeleted;
    
+   private String email;
+   
    /** @pdRoleInfo migr=no name=Password assc=userPassword mult=1..1 */
    public Password userPassword;
    /** @pdRoleInfo migr=no name=Role assc=userRole mult=0..* */
@@ -140,6 +142,14 @@ public class User implements Serializable {
      */
     public void setUpdate(Date update) {
         this.update = update;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
     }
 
 }
