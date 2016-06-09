@@ -28,6 +28,14 @@ public class User implements Serializable {
    private Boolean isDeleted;
    
    private String email;
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
    
    /** @pdRoleInfo migr=no name=Password assc=userPassword mult=1..1 */
    public Password userPassword;

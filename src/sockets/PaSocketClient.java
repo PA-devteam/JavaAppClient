@@ -1,5 +1,6 @@
 package sockets;
 
+import entities.Equation;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.ObjectInputStream;
@@ -57,6 +58,7 @@ public class PaSocketClient extends Thread implements Runnable {
             // Initialise stream handlers
             initStreamHandlers();
             boolean init = true;
+            boolean firstUpdate=true;
 
             // Reset number of connection retries
             retries = 0;
@@ -85,6 +87,27 @@ public class PaSocketClient extends Thread implements Runnable {
                         guibinding.GuiBinder.roles.clear();
                         guibinding.GuiBinder.roles.addAll((ArrayList<String>) tmp.getContent());
                         break;
+                        case LISTEQUATION:
+                            PaSocketResponse listEquation = (PaSocketResponse) message;
+                       
+                      ArrayList<Equation> ListEquations=(ArrayList<Equation>) listEquation.getContent();
+                       System.out.println(ListEquations.get(0).getDescription());
+                       System.out.println(ListEquations.get(0).getEquationElement().get(0).getDescription());
+                       Equation une=ListEquations.get(0);
+                       PaSocketMessageEquation equation=new PaSocketMessageEquation();
+                        equation.setUpdateEquation();
+                        equation.setEquation(une);
+                        PaSocketClient.sendObject(equation);
+                        
+                       break;
+                        case REFRESH:
+                             equation=new PaSocketMessageEquation();
+                              System.out.println("REFRESH--------");
+          if(firstUpdate){
+           PaSocketClient.sendObject(equation);
+          firstUpdate=false;
+          }
+                            break;
                     default:
                         System.err.println("ACTION '" + action + "' NOT SUPPORTED");
                         break;

@@ -7,10 +7,11 @@ package entities;
  ***********************************************************************/
 
 import entities.User;
+import java.io.Serializable;
 import java.util.*;
 
 /** @pdOid 55edc2fe-2156-4a24-921b-f6d2edabc311 */
-public class Equation {
+public class Equation implements Serializable{
    /** @pdOid d6984ecd-e51b-4910-bbc9-8958d902606e */
    private int id;
    /** @pdOid 2451366d-d6cb-4fbd-8791-1cf647e65a73 */
@@ -27,6 +28,81 @@ public class Equation {
    /** @pdRoleInfo migr=no name=Rule assc=equationRules mult=0..* */
    public Rule[] equationRules;
    /** @pdRoleInfo migr=no name=Element assc=equationElement mult=1..* type=Composition */
-   public Element[] equationElement;
+   public ArrayList<Element> equationElement;
+   public User createdBy;
 
+    public User getCreatedBy() {
+        return createdBy;
+    }
+
+    public void setCreatedBy(User createdBy) {
+        this.createdBy = createdBy;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public String getLabel() {
+        return label;
+    }
+
+    public void setLabel(String label) {
+        this.label = label;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public Boolean getIsValid() {
+        return isValid;
+    }
+
+    public void setIsValid(Boolean isValid) {
+        this.isValid = isValid;
+    }
+
+    public User getValidatedBy() {
+        return validatedBy;
+    }
+
+    public void setValidatedBy(User validatedBy) {
+        this.validatedBy = validatedBy;
+    }
+
+    public Date getValidationDate() {
+        return validationDate;
+    }
+
+    public void setValidationDate(Date validationDate) {
+        this.validationDate = validationDate;
+    }
+
+    public Rule[] getEquationRules() {
+        return equationRules;
+    }
+
+    public void setEquationRules(Rule[] equationRules) {
+        this.equationRules = equationRules;
+    }
+
+    public ArrayList<Element>  getEquationElement() {
+        return equationElement;
+    }
+
+    public void setEquationElement(ArrayList<Element>  equationElement) {
+        this.equationElement = equationElement;
+    }
+
+   
+   
 }

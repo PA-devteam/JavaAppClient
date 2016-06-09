@@ -2,7 +2,7 @@ package sockets;
 
 public enum PaSocketAction {
     // Connection (connexion)
-    LOGIN,
+       LOGIN,
     // Register
     REGISTER,
     // Disconnection (déconnexion)
@@ -10,5 +10,14 @@ public enum PaSocketAction {
     // Miscellaneous (divers)
     MISC,
     // Init 
-    INIT 
+    INIT ,
+    //Updateequation
+    UPDATEEQUATION,
+    //CreateEquation,
+    CREATEEQUATION,
+    //DeleteEquation
+    DELETEEQUATION,
+    //List of Equation
+    LISTEQUATION,
+    REFRESH
 }
