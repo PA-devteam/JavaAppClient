@@ -1,5 +1,6 @@
 package screens;
 
+import java.util.HashMap;
 import resources.ResourceLoader;
 import java.util.Vector;
 import javafx.fxml.Initializable;
@@ -13,6 +14,9 @@ public class ScreensManager {
     public static StackPane container;
     public static ProgressBar loadingBar;
     public static ScreensController controller;
+    public static HashMap viewParams = new HashMap<String, Object>();
+    
+    public static int foo = 0;
 
     public static void cancel() {
         if(history.size() > 0) {
@@ -22,6 +26,12 @@ public class ScreensManager {
         } else {
             setContent(Screens.NOT_FOUND);
         }
+    }
+    
+    public static Enum<Screens> toReload = null;
+    public static void reload(Enum<Screens> view) {
+        toReload = view;
+        setContent(Screens.RELOADER);
     }
 
     public static void setContent(Enum<Screens> view) {

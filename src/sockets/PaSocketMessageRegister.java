@@ -47,6 +47,10 @@ public class PaSocketMessageRegister extends PaSocketMessageLogin {
     public void setUserLastName(String userLastName) {
         this.userLastName = userLastName;
     }
+    
+    public void setActionInfo(){
+        this.action = PaSocketAction.UPDATEINFO;
+    }
 
     public PaSocketMessageRegister() {
         super();

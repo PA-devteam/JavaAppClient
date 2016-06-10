@@ -1,6 +1,7 @@
 package sockets;
 
 import entities.Equation;
+import guibinding.GuiBinder;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.ObjectInputStream;
@@ -58,7 +59,7 @@ public class PaSocketClient extends Thread implements Runnable {
             // Initialise stream handlers
             initStreamHandlers();
             boolean init = true;
-            boolean firstUpdate=true;
+            boolean firstUpdate = true;
 
             // Reset number of connection retries
             retries = 0;
@@ -80,34 +81,78 @@ public class PaSocketClient extends Thread implements Runnable {
                 switch (action) {
                     case LOGIN:
                     case REGISTER:
+                    case UPDATEINFO:
                         security.Authenticator.authenticate(message);
+                        break;
+                    case EQUATIONBYID:
+                        System.out.println("EQUATION RECEIVED");
+                        PaSocketResponse recu = (PaSocketResponse) message;
+                        Equation equationId = (Equation) recu.getContent();
+                        System.out.println(equationId);
+                        System.out.println("CreatedBy");
+                        System.out.println(equationId.getCreatedBy());
+                        GuiBinder.equation.setCreatedBy(equationId.getCreatedBy().toString());
+                        GuiBinder.equation.setDescription(equationId.getDescription());
+                        GuiBinder.equation.setId(equationId.getId());
+                        GuiBinder.equation.setLabel(equationId.getLabel());
+                        GuiBinder.equation.setValidationDate(equationId.getValidationDate());
+                        GuiBinder.equation.setValidatedBy(equationId.getValidatedBy());
+                        //  GuiBinder.equation.setEquationElement(equationId.getEquationElement());
                         break;
                     case INIT:
                         PaSocketResponse tmp = (PaSocketResponse) message;
                         guibinding.GuiBinder.roles.clear();
                         guibinding.GuiBinder.roles.addAll((ArrayList<String>) tmp.getContent());
                         break;
-                        case LISTEQUATION:
-                            PaSocketResponse listEquation = (PaSocketResponse) message;
-                       
-                      ArrayList<Equation> ListEquations=(ArrayList<Equation>) listEquation.getContent();
-                       System.out.println(ListEquations.get(0).getDescription());
-                       System.out.println(ListEquations.get(0).getEquationElement().get(0).getDescription());
-                       Equation une=ListEquations.get(0);
-                       PaSocketMessageEquation equation=new PaSocketMessageEquation();
-                        equation.setUpdateEquation();
-                        equation.setEquation(une);
-                        PaSocketClient.sendObject(equation);
+                    case LISTEQUATION:
+                        PaSocketResponse listEquation = (PaSocketResponse) message;
+                        GuiBinder.listEquation.removeAll();
+                        GuiBinder.listEquation.setAll((ArrayList<Equation>) listEquation.getContent());
+
+                        GuiBinder.listEquationSize.set(Integer.toString(GuiBinder.listEquation.size()));
+                        break;
+                    case MISC:
+                        System.out.println("MISC !");
+                        Platform.runLater(new Runnable() {
+                            @Override
+                            public void run() {
+                                if(ScreensManager.history.lastElement() == Screens.WORKSPACE) {
+                                    ScreensManager.reload(Screens.WORKSPACE);
+                                }
+                            }});
                         
-                       break;
-                        case REFRESH:
-                             equation=new PaSocketMessageEquation();
-                              System.out.println("REFRESH--------");
-          if(firstUpdate){
-           PaSocketClient.sendObject(equation);
-          firstUpdate=false;
-          }
-                            break;
+                        
+//                       System.out.println(GuiBinder.listEquation.get(0).getDescription());
+                        // System.out.println(ListEquations.get(0).getEquationElement().get(0).getDescription());
+                        // Equation une=ListEquations.get(0);
+//                       PaSocketMessageEquation equation=new PaSocketMessageEquation();
+//                        equation.setUpdateEquation();
+//                        equation.setEquation(une);
+//                        PaSocketClient.sendObject(equation);
+
+                        break;
+                    case REFRESH:
+//                             equation=new PaSocketMessageEquation();
+//                              System.out.println("REFRESH--------");
+//          if(firstUpdate){
+//           PaSocketClient.sendObject(equation);
+//          firstUpdate=false;
+//          }
+                        break;
+                    case CREATEEQUATION:
+
+                        recu = (PaSocketResponse) message;
+                        if ((int) recu.getContent() >= 0) {
+                            Platform.runLater(new Runnable() {
+                                @Override
+                                public void run() {
+                                    ScreensManager.viewParams.put("id", (int) recu.getContent());
+
+                                    ScreensManager.setContent(Screens.WORKSPACE);
+                                }
+                            });
+                        }
+                        break;
                     default:
                         System.err.println("ACTION '" + action + "' NOT SUPPORTED");
                         break;

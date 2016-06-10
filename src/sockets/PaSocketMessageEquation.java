@@ -38,6 +38,10 @@ public class PaSocketMessageEquation extends PaSocketMessage {
     public void setCreateEquation(){
         this.action=PaSocketAction.CREATEEQUATION;
     }
+    
+    public void setEquationById(){
+        this.action=PaSocketAction.EQUATIONBYID;
+    }
      public PaSocketMessageEquation(){
         this.action=PaSocketAction.LISTEQUATION;
     }
